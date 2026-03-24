@@ -1,201 +1,225 @@
-@extends('UserSide.layouts.guest')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Pending - Cooperative Management System</title>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
 
-@section('content')
-@include('UserSide.partials.theme-config')
-<div class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Left Panel - Welcome Card -->
-            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl p-8 text-white flex flex-col justify-between">
-                <div>
-                    <p class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">LARAVEL ACCOUNT</p>
-                    <h1 class="text-4xl font-bold mb-4">Welcome back, there</h1>
-                    <p class="text-white/80 text-lg">
-                        Complete your profile to unlock personalized features and faster approvals.
-                    </p>
+        body {
+            background-color: #111827;
+            color: #fff;
+        }
 
-                    <!-- Profile Status Progress Box -->
-                    <div class="mt-6 bg-white rounded-xl shadow-lg p-4">
-                        <div class="flex flex-col space-y-4">
-                            <!-- Step 1: Registration -->
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white flex-shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-3 flex-1">
-                                    <div class="h-1 bg-green-500 rounded"></div>
-                                </div>
-                                <span class="ml-3 text-xs font-bold text-gray-900">Registration</span>
-                            </div>
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        .animate-bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        .animate-pulse-slow {
+            animation: pulseSlow 2s infinite;
+        }
 
-                            <!-- Step 2: Profile Completion -->
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white flex-shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-3 flex-1">
-                                    <div class="h-1 bg-green-500 rounded"></div>
-                                </div>
-                                <span class="ml-3 text-xs font-bold text-gray-900">Completed</span>
-                            </div>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulseSlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
 
-                            <!-- Step 3: Admin Approval -->
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-white flex-shrink-0 animate-pulse">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-3 flex-1">
-                                    <div class="h-1 bg-gradient-to-r from-yellow-500 to-gray-300 rounded"></div>
-                                </div>
-                                <span class="ml-3 text-xs font-bold text-yellow-600">Waiting</span>
-                            </div>
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+            color: #10b981;
+        }
+        .shape:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 20%; right: 10%; animation-delay: 5s; }
+        .shape:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 10s; }
+        .shape:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 15s; }
 
-                            <!-- Step 4: Account Active -->
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 flex-shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-3 flex-1">
-                                    <div class="h-1 bg-gray-300 rounded"></div>
-                                </div>
-                                <span class="ml-3 text-xs font-bold text-gray-500">Pending</span>
-                            </div>
-                        </div>
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        /* Ensure body can scroll */
+        html, body {
+            overflow-x: hidden;
+        }
+
+        .btn-hover {
+            transition: all 0.3s ease;
+            background-color: #059669;
+            color: white;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-hover:hover {
+            background-color: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-secondary {
+            transition: all 0.3s ease;
+            background-color: #1f2937;
+            color: #d1d5db;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px solid #374151;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background-color: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(55, 65, 81, 0.5);
+        }
+
+        .heading-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .heading-subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .info-icon {
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="bg-gray-900" style="background-color: #111827; overflow-y: auto;">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes" style="pointer-events: none;">
+        <div class="shape"><i class="fas fa-handshake text-4xl"></i></div>
+        <div class="shape"><i class="fas fa-clock text-3xl"></i></div>
+        <div class="shape"><i class="fas fa-user-check text-5xl"></i></div>
+        <div class="shape"><i class="fas fa-shield-alt text-2xl"></i></div>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10" style="min-height: auto; padding-top: 3rem; padding-bottom: 3rem;">
+        <div class="max-w-md w-full space-y-8 animate-fade-in">
+            <!-- Logo/Header Section -->
+            <div class="text-center animate-bounce-in">
+                <div class="animate-pulse-slow">
+                    <i class="fas fa-exclamation-circle text-6xl info-icon"></i>
+                </div>
+                <h2 class="mt-6 text-center heading-title animate-slide-up">
+                    Account Pending Confirmation
+                </h2>
+                <p class="mt-2 text-center heading-subtitle animate-slide-up" style="animation-delay: 0.2s;">
+                    Hi {{ auth('member')->user()?->first_name ?? 'Troy' }}, thanks for signing up with MPCMS.
+                </p>
+            </div>
+
+            <!-- Success Message -->
+            @if (session('success'))
+            <div class="rounded-md p-4 border animate-slide-up" style="animation-delay: 0.3s; background-color: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle" style="color: #34d399;"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm" style="color: #a7f3d0;">
+                            {{ session('success') }}
+                        </p>
                     </div>
                 </div>
-                
-                <div class="mt-auto pt-8">
-                    <div class="space-y-2">
-                        <p class="text-sm">
-                            <span class="font-semibold">Profile status:</span> 
-                            <span class="text-yellow-300">Pending completion</span>
+            </div>
+            @endif
+
+            <!-- Warning Box -->
+            <div class="rounded-md p-4 animate-slide-up" style="animation-delay: 0.4s; background-color: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3);">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle info-icon"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium" style="color: #fde68a;">
+                            Your account is pending admin confirmation.
                         </p>
-                        <p class="text-sm">
-                            <span class="font-semibold">Email:</span> 
-                            <span>{{ auth('member')->user()?->email ?? 'justine@gmail.com' }}</span>
+                        <p class="text-sm mt-2" style="color: #fde68a;">
+                            Please wait for approval from the administrator. You will be notified once your account has been activated.
                         </p>
                     </div>
-                    
-                    <!-- Logout Button -->
-                    <form method="POST" action="{{ route('user.logout') }}" class="mt-6">
-                        @csrf
-                        <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2.5 border border-white/30 text-sm font-semibold rounded-lg text-white bg-white/10 hover:bg-white/20 transition-all duration-200">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                            </svg>
-                            Logout
-                        </button>
-                    </form>
                 </div>
             </div>
 
-            <!-- Right Panel - Profile Form -->
-            <div class="bg-white rounded-3xl shadow-2xl p-8 flex flex-col max-h-[85vh]">
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Complete your profile</h2>
-                    <p class="text-gray-600">Hi there, confirm your details to finish setup.</p>
+            <!-- Action Buttons -->
+            <div class="space-y-4 animate-slide-up" style="animation-delay: 0.5s;">
+                <a href="{{ route('user.profile.complete') }}" class="btn-hover" style="width: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                    <i class="fas fa-eye mr-2"></i>
+                    <span>View Profile</span>
+                </a>
+
+                <form method="POST" action="{{ route('user.logout') }}">
+                    @csrf
+                    <button type="submit" class="btn-secondary" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Info Section -->
+            <div class="rounded-md border p-4 animate-slide-up" style="animation-delay: 0.6s; background-color: rgba(31, 41, 55, 0.5); border-color: #374151;">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-lightbulb" style="color: #fbbf24; margin-top: 4px;"></i>
+                    <div class="text-sm" style="color: #d1d5db;">
+                        <p>You can close this page and come back later. Your account status will be updated automatically once approved.</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="overflow-y-auto flex-1 pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                    <form method="POST" action="#" enctype="multipart/form-data" class="space-y-5">
-                        @csrf
-
-                        <!-- Profile Photo -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Profile Photo</label>
-                            <input type="file" name="profile_photo" accept="image/*" 
-                                   class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                        </div>
-
-                        <!-- First Name -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
-                            <input type="text" name="first_name" placeholder="First Name" 
-                                   value="{{ auth('member')->user()?->first_name ?? '' }}"
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Last Name -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
-                            <input type="text" name="last_name" placeholder="Last Name" 
-                                   value="{{ auth('member')->user()?->last_name ?? '' }}"
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Phone -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
-                            <input type="tel" name="phone" placeholder="Phone Number" 
-                                   value="{{ auth('member')->user()?->phone ?? '' }}"
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Address -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Address</label>
-                            <input type="text" name="address" placeholder="Address" 
-                                   value="{{ auth('member')->user()?->address ?? '' }}"
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Nature of Work -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nature of Work</label>
-                            <input type="text" name="nature_of_work" placeholder="Self-employed, Farmer, etc." 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Employer or Business -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Employer or Business</label>
-                            <input type="text" name="employer" placeholder="Employer or Business Name" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Date of Employment -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Date of Employment</label>
-                            <input type="date" name="employment_date" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- TIN Number -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">TIN Number</label>
-                            <input type="text" name="tin_number" placeholder="123-456-789-000" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- SSS/GSIS Number -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">SSS/GSIS Number</label>
-                            <input type="text" name="sss_gsis_number" placeholder="01-2345678-9" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="pt-4">
-                            <p class="text-xs text-gray-500 mb-3">
-                                By submitting, you agree to our terms and conditions.
-                            </p>
-                            <button type="submit" 
-                                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
-                                Complete Profile
-                            </button>
-                        </div>
-                    </form>
+            <!-- Security Notice -->
+            <div class="text-center text-sm animate-fade-in" style="animation-delay: 0.7s; color: #6b7280; margin-top: 32px;">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-shield-alt" style="color: #9ca3af; margin-right: 8px;"></i>
+                    <span>Secure Member Access Only</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+</body>
+</html>

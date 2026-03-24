@@ -17,65 +17,6 @@ class UserAuthController extends Controller
         return view('UserSide.auth.login');
     }
 
-    public function showRegistrationForm()
-    {
-        return view('UserSide.auth.register');
-    }
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:members',
-            'phone' => 'required|string|max:20|unique:members',
-            'password' => 'required|string|min:8|confirmed'
-        ]);
-
-        // Generate unique member_id
-        $today = date('Ymd');
-        $prefix = 'M' . $today;
-        
-        // Find the highest member_id for today
-        $lastMember = Member::where('member_id', 'LIKE', $prefix . '%')
-            ->orderBy('member_id', 'desc')
-            ->first();
-        
-        if ($lastMember) {
-            $lastSequence = (int) substr($lastMember->member_id, -4);
-            $nextSequence = $lastSequence + 1;
-        } else {
-            $nextSequence = 1;
-        }
-        
-        $memberId = $prefix . str_pad($nextSequence, 4, '0', STR_PAD_LEFT);
-
-        $member = Member::create([
-            'member_id' => $memberId,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => bcrypt($request->password),
-            'join_date' => now(),
-            'status' => 'pending'
-        ]);
-
-        // Log the registration activity (tie explicitly to the new member)
-        ActivityLogService::log(
-            'registration',
-            'New member registration',
-            $request,
-            $member->id
-        );
-
-        // Automatically log in the user after registration
-        Auth::guard('member')->login($member);
-
-        return redirect()->route('user.dashboard')
-            ->with('status', 'Registration successful! Welcome to the cooperative.');
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -97,9 +38,17 @@ class UserAuthController extends Controller
                 $request
             );
             
-            // If account not confirmed, redirect to profile completion
-            if (!$user->confirmed) {
+            // Check if profile is completed
+            $member = $user->member;
+            
+            // If profile not completed, redirect to profile completion
+            if (!$member->profile_completed) {
                 return redirect()->route('user.profile.complete');
+            }
+            
+            // If profile completed but account not confirmed, redirect to pending confirmation
+            if ($member->profile_completed && !$user->confirmed) {
+                return redirect()->route('user.profile.pending');
             }
             
             return redirect()->intended(route('user.dashboard'));
@@ -114,6 +63,19 @@ class UserAuthController extends Controller
                 'Member logged in successfully',
                 $request
             );
+            
+            // Check member profile status
+            $member = Auth::guard('member')->user();
+            
+            // If profile not completed, redirect to profile completion
+            if (!$member->profile_completed) {
+                return redirect()->route('user.profile.complete');
+            }
+            
+            // If profile completed but status is pending, redirect to pending confirmation
+            if ($member->profile_completed && $member->status === 'pending') {
+                return redirect()->route('user.profile.pending');
+            }
             
             return redirect()->intended(route('user.dashboard'));
         }
@@ -238,52 +200,6 @@ class UserAuthController extends Controller
     }
 
     /**
-     * Show the password reset form.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showResetPasswordForm()
-    {
-        return view('UserSide.auth.passwords.reset');
-    }
-
-    /**
-     * Reset the user's password.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function resetPassword(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-        ]);
-
-        $member = Member::where('email', $request->email)->first();
-
-        if (!$member) {
-            return back()->withErrors([
-                'email' => 'We can\'t find a member with that email address.',
-            ]);
-        }
-
-        $member->password = bcrypt($request->password);
-        $member->save();
-
-        // Log the password reset activity (ensure it's tied to the member)
-        ActivityLogService::log(
-            'password_reset',
-            'Member reset their password',
-            $request,
-            $member->id
-        );
-
-        return redirect()->route('user.login')
-            ->with('status', 'Password has been reset successfully.');
-    }
-
-    /**
      * Show the generate password form.
      *
      * @return \Illuminate\View\View
@@ -294,7 +210,7 @@ class UserAuthController extends Controller
     }
 
     /**
-     * Generate a new password for the member and display it.
+     * Send password change request to admin.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -303,37 +219,38 @@ class UserAuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
+            'reason' => 'nullable|string|max:500',
         ]);
 
-        $plainPassword = \Illuminate\Support\Str::random(12);
-
-        // Check User first (admin-created accounts)
+        // Check if member exists
         $user = User::where('email', $request->email)->first();
-        if ($user) {
-            $user->password = Hash::make($plainPassword);
-            $user->save();
-            $member = $user->member;
-            if ($member) {
-                $member->password = Hash::make($plainPassword);
-                $member->save();
-            }
-            ActivityLogService::log('password_reset', 'Member requested generated password', $request, $member?->id);
-            return redirect()->route('user.password.generate')
-                ->with('generated_password', $plainPassword);
-        }
-
-        // Check Member (direct registration)
         $member = Member::where('email', $request->email)->first();
-        if ($member) {
-            $member->password = Hash::make($plainPassword);
-            $member->save();
-            ActivityLogService::log('password_reset', 'Member requested generated password', $request, $member->id);
-            return redirect()->route('user.password.generate')
-                ->with('generated_password', $plainPassword);
+        
+        if (!$user && !$member) {
+            return back()->withErrors([
+                'email' => 'We can\'t find a member with that email address.',
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'We can\'t find a member with that email address.',
+        // Get member name
+        $memberName = 'Unknown Member';
+        if ($user && $user->member) {
+            $memberName = trim($user->member->first_name . ' ' . $user->member->last_name);
+        } elseif ($member) {
+            $memberName = trim($member->first_name . ' ' . $member->last_name);
+        }
+
+        // Create a contact message for admin
+        \App\Models\ContactMessage::create([
+            'name' => $memberName,
+            'email' => $request->email,
+            'subject' => 'Password Change Request',
+            'message' => "Member {$memberName} ({$request->email}) has requested a password change.\n\n" . 
+                        ($request->reason ? "Reason: {$request->reason}" : "No reason provided."),
+            'is_read' => false,
         ]);
+
+        return redirect()->route('user.password.generate')
+            ->with('success', 'Your password change request has been sent to the administrator. You will be contacted shortly.');
     }
 }

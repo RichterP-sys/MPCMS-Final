@@ -232,8 +232,8 @@
                     <span class="flex items-center gap-1.5 text-xs font-medium text-blue-600">
                         <span class="w-2 h-2 rounded-full bg-blue-500"></span>Loans
                     </span>
-                    <span class="flex items-center gap-1.5 text-xs font-medium text-emerald-600">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>Contributions
+                    <span class="flex items-center gap-1.5 text-xs font-medium text-green-600">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>Contributions
                     </span>
                 </div>
             </div>

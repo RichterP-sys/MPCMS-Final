@@ -36,8 +36,6 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('login', [App\Http\Controllers\User\UserAuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [App\Http\Controllers\User\UserAuthController::class, 'login']);
     Route::post('logout', [App\Http\Controllers\User\UserAuthController::class, 'logout'])->name('logout');
-    Route::get('password/reset', [App\Http\Controllers\User\UserAuthController::class, 'showResetPasswordForm'])->name('password.request');
-    Route::post('password/reset', [App\Http\Controllers\User\UserAuthController::class, 'resetPassword'])->name('password.update');
     Route::get('password/generate', [App\Http\Controllers\User\UserAuthController::class, 'showGeneratePasswordForm'])->name('password.generate');
     Route::post('password/generate', [App\Http\Controllers\User\UserAuthController::class, 'generatePassword']);
 

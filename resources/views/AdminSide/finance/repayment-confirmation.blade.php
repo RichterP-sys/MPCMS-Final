@@ -268,7 +268,7 @@
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-1">Payment Confirmed</h3>
             <p id="payment-confirmed-msg" class="text-sm text-gray-600 mb-6">The payment has been recorded successfully.</p>
-            <button type="button" onclick="closePaymentConfirmedModal()" class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition">
+            <button type="button" onclick="closePaymentConfirmedModal()" class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-green-600 hover:bg-green-700 transition">
                 OK
             </button>
         </div>

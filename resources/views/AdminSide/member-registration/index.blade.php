@@ -68,9 +68,9 @@
                 @endif
 
                 @if (session('success'))
-                    <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-3">
-                        <i class="fas fa-check-circle text-emerald-600"></i>
-                        <span class="text-sm font-medium text-emerald-700">{{ session('success') }}</span>
+                    <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+                        <i class="fas fa-check-circle text-green-600"></i>
+                        <span class="text-sm font-medium text-green-700">{{ session('success') }}</span>
                     </div>
                 @endif
 
@@ -223,7 +223,7 @@
                 <form id="confirmForm" method="POST" action="{{ route('admin.member-registration.confirm') }}" class="flex-1">
                     @csrf
                     <input type="hidden" name="user_id" id="modalUserId">
-                    <button type="submit" class="w-full px-4 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition">Confirm</button>
+                    <button type="submit" class="w-full px-4 py-2.5 text-sm font-medium text-white bg-green-600 rounded-xl hover:bg-green-700 transition">Confirm</button>
                 </form>
             </div>
         </div>

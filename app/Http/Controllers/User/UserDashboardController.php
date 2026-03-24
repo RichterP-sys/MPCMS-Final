@@ -18,6 +18,18 @@ class UserDashboardController extends Controller
     {
         $member = auth()->guard('member')->user();
         
+        // Check if profile is completed
+        if (!$member->profile_completed) {
+            return redirect()->route('user.profile.complete')
+                ->with('warning', 'Please complete your profile to access the dashboard.');
+        }
+        
+        // Check if account is pending confirmation
+        if ($member->status === 'pending') {
+            return redirect()->route('user.profile.pending')
+                ->with('warning', 'Your account is pending admin confirmation.');
+        }
+        
         // Log dashboard access
         ActivityLogService::log(
             'dashboard_access',

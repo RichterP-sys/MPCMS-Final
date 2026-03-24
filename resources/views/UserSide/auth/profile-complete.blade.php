@@ -1,340 +1,411 @@
-@extends('UserSide.layouts.guest')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Profile - Cooperative Management System</title>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
 
-@section('content')
-@php
-    // Prefer the member guard (this page is shown after member login)
-    $user = auth('member')->user() ?? auth()->user();
-    $displayName = trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? ''));
-    $displayName = $displayName !== '' ? $displayName : ($user->name ?? 'there');
-    $brandName = config('app.name', 'MPCMS');
-    $theme = request('theme', 'indigo');
-    $themes = [
-        'indigo' => ['from' => 'from-indigo-500', 'via' => 'via-sky-500', 'to' => 'to-blue-600', 'accent' => 'text-indigo-600', 'ring' => 'focus:ring-indigo-500', 'border' => 'focus:border-indigo-500', 'button' => 'bg-indigo-600 hover:bg-indigo-700'],
-        'emerald' => ['from' => 'from-emerald-500', 'via' => 'via-teal-500', 'to' => 'to-cyan-600', 'accent' => 'text-emerald-600', 'ring' => 'focus:ring-emerald-500', 'border' => 'focus:border-emerald-500', 'button' => 'bg-emerald-600 hover:bg-emerald-700'],
-        'rose' => ['from' => 'from-rose-500', 'via' => 'via-pink-500', 'to' => 'to-fuchsia-600', 'accent' => 'text-rose-600', 'ring' => 'focus:ring-rose-500', 'border' => 'focus:border-rose-500', 'button' => 'bg-rose-600 hover:bg-rose-700'],
-    ];
-    $themeConfig = $themes[$theme] ?? $themes['indigo'];
-@endphp
-<style>
-    @keyframes floatSlow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
-    .float-slow { animation: floatSlow 6s ease-in-out infinite; }
-    .fade-in-up { animation: fadeInUp 600ms ease-out both; }
-</style>
+        body {
+            background-color: #111827;
+            color: #fff;
+        }
 
-<div class="min-h-screen bg-gradient-to-br {{ $themeConfig['from'] }} {{ $themeConfig['via'] }} {{ $themeConfig['to'] }} flex items-center justify-center py-10 px-4 sm:px-6 lg:px-10">
-    <div class="w-full max-w-6xl">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-stretch">
-        <div class="hidden lg:flex flex-col justify-between rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-8 text-white shadow-2xl float-slow">
-            <div>
-                <span class="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
-                    MPCMS Account
-                </span>
-                <h1 class="mt-6 text-3xl font-bold leading-tight">
-                    Welcome!
-                </h1>
-                <p class="mt-3 text-sm text-white/80">
-                    Complete your profile to unlock personalized features and faster approvals.
-                </p>
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        .animate-bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        .animate-pulse-slow {
+            animation: pulseSlow 2s infinite;
+        }
 
-                <!-- Profile Status Progress Box -->
-                <div class="mt-6 bg-white rounded-xl shadow-lg p-4">
-                    <div class="flex flex-col space-y-4">
-                        <!-- Step 1: Registration -->
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white flex-shrink-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <div class="h-1 bg-green-500 rounded"></div>
-                            </div>
-                            <span class="ml-3 text-xs font-bold text-gray-900">Registration</span>
-                        </div>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulseSlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
 
-                        <!-- Step 2: Profile Completion -->
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white flex-shrink-0 animate-pulse">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <div class="h-1 bg-gradient-to-r from-blue-500 to-gray-300 rounded"></div>
-                            </div>
-                            <span class="ml-3 text-xs font-bold text-blue-600">In Progress</span>
-                        </div>
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+            color: #10b981;
+        }
+        .shape:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 20%; right: 10%; animation-delay: 5s; }
+        .shape:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 10s; }
+        .shape:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 15s; }
 
-                        <!-- Step 3: Admin Approval -->
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 flex-shrink-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <div class="h-1 bg-gray-300 rounded"></div>
-                            </div>
-                            <span class="ml-3 text-xs font-bold text-gray-500">Waiting</span>
-                        </div>
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
 
-                        <!-- Step 4: Account Active -->
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 flex-shrink-0">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <div class="h-1 bg-gray-300 rounded"></div>
-                            </div>
-                            <span class="ml-3 text-xs font-bold text-gray-500">Pending</span>
-                        </div>
-                    </div>
+        .input-focus {
+            transition: all 0.3s ease;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            color: #d1d5db;
+        }
+        .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            border-color: #10b981;
+        }
+
+        .btn-hover {
+            transition: all 0.3s ease;
+            background-color: #059669;
+            color: white;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-hover:hover {
+            background-color: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-secondary {
+            transition: all 0.3s ease;
+            background-color: #1f2937;
+            color: #d1d5db;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px solid #374151;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background-color: #374151;
+            transform: translateY(-2px);
+        }
+
+        .heading-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .heading-subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .label-text {
+            color: #e5e7eb;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .info-icon {
+            color: #34d399;
+        }
+
+        .form-container {
+            max-height: 60vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 10px;
+        }
+
+        .form-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .form-container::-webkit-scrollbar-track {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+
+        .form-container::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+
+        .form-container::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+
+        /* Ensure body can scroll */
+        html, body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-900" style="background-color: #111827; overflow-y: auto;">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes" style="pointer-events: none;">
+        <div class="shape"><i class="fas fa-user-edit text-4xl"></i></div>
+        <div class="shape"><i class="fas fa-id-card text-3xl"></i></div>
+        <div class="shape"><i class="fas fa-briefcase text-5xl"></i></div>
+        <div class="shape"><i class="fas fa-file-alt text-2xl"></i></div>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10" style="min-height: auto; padding-top: 3rem; padding-bottom: 3rem;">
+        <div class="max-w-2xl w-full space-y-8 animate-fade-in">
+            <!-- Logo/Header Section -->
+            <div class="text-center animate-bounce-in">
+                <div class="animate-pulse-slow">
+                    <i class="fas fa-user-circle text-6xl info-icon"></i>
                 </div>
-            </div>
-            <div class="mt-10 space-y-3 text-sm">
-                <div class="flex items-center gap-2">
-                    <span class="inline-block h-2 w-2 rounded-full bg-white/80"></span>
-                    <span>Profile status: <strong class="text-white">Pending completion</strong></span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="inline-block h-2 w-2 rounded-full bg-white/80"></span>
-                    <span>Email: {{ $user->email ?? 'Not provided' }}</span>
-                </div>
-                
-                <!-- Logout Button -->
-                <form method="POST" action="{{ route('user.logout') }}" class="mt-6">
-                    @csrf
-                    <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2.5 border border-white/30 text-sm font-semibold rounded-lg text-white bg-white/10 hover:bg-white/20 transition-all duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                        </svg>
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="w-full rounded-2xl bg-white shadow-2xl p-6 sm:p-8 lg:p-10 fade-in-up flex flex-col max-h-[85vh]">
-            @if (session('warning'))
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-amber-700">{{ session('warning') }}</p>
-                    </div>
-                </div>
-            </div>
-            @endif
-            
-            <div class="text-center lg:text-left mb-4">
-                <h2 class="text-3xl font-extrabold text-gray-900">
-                    Complete your profile
+                <h2 class="mt-6 text-center heading-title animate-slide-up">
+                    Complete Your Profile
                 </h2>
-                <p class="mt-2 text-sm text-gray-600">
+                <p class="mt-2 text-center heading-subtitle animate-slide-up" style="animation-delay: 0.2s;">
+                    @php
+                        $user = auth('member')->user() ?? auth()->user();
+                        $displayName = trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? ''));
+                        $displayName = $displayName !== '' ? $displayName : ($user->name ?? 'there');
+                    @endphp
                     Hi {{ $displayName }}, confirm your details to finish setup.
                 </p>
             </div>
 
-            <div class="overflow-y-auto flex-1 pr-2">
-                <form class="space-y-5" action="{{ route('user.profile.store') }}" method="POST" enctype="multipart/form-data">
-
-            @csrf
-            
-                <!-- Profile Photo -->
-                <div>
-                    <label for="profile_photo" class="block text-xs font-semibold text-gray-600 mb-2">Profile Photo</label>
-                    <input
-                        id="profile_photo"
-                        name="profile_photo"
-                        type="file"
-                        accept="image/*"
-                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                    >
-                    @error('profile_photo')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                    @if(!empty($user->profile_photo))
-                        <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Profile Photo" class="mt-2 w-20 h-20 rounded-full object-cover border border-gray-300">
-                    @endif
+            <!-- Info Box -->
+            <div class="rounded-md p-4 animate-slide-up" style="animation-delay: 0.3s; background-color: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle info-icon"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm" style="color: #a7f3d0;">
+                            Please fill in all required information to complete your profile. This information will be reviewed by the administrator.
+                        </p>
+                    </div>
                 </div>
-
-            <!-- First Name -->
-            <div>
-                <label for="first_name" class="block text-xs font-semibold text-gray-600 mb-2">First Name</label>
-                <input
-                    id="first_name"
-                    name="first_name"
-                    type="text"
-                    autocomplete="given-name"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="First Name"
-                    value="{{ old('first_name', $user->first_name ?? '') }}"
-                >
-                @error('first_name')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
             </div>
 
-            <!-- Last Name -->
-            <div>
-                <label for="last_name" class="block text-xs font-semibold text-gray-600 mb-2">Last Name</label>
-                <input
-                    id="last_name"
-                    name="last_name"
-                    type="text"
-                    autocomplete="family-name"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="Last Name"
-                    value="{{ old('last_name', $user->last_name ?? '') }}"
-                >
-                @error('last_name')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
+            <!-- Success/Warning Messages -->
+            @if (session('success'))
+            <div class="rounded-md p-4 border animate-slide-up" style="background-color: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle" style="color: #34d399;"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm" style="color: #a7f3d0;">
+                            {{ session('success') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if (session('warning'))
+            <div class="rounded-md p-4 border animate-slide-up" style="background-color: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3);">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle" style="color: #fbbf24;"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm" style="color: #fde68a;">
+                            {{ session('warning') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            <!-- Profile Form -->
+            <div class="form-container animate-slide-up" style="animation-delay: 0.4s;">
+                <form action="{{ route('user.profile.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+                    @csrf
+
+                    <!-- Profile Photo -->
+                    <div>
+                        <label class="label-text block mb-2">Profile Photo</label>
+                        <input type="file" name="profile_photo" accept="image/*"
+                            class="input-focus block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db; padding: 8px; border-radius: 6px;">
+                        @error('profile_photo')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- First Name -->
+                    <div>
+                        <label for="first_name" class="label-text block mb-2">First Name</label>
+                        <input type="text" id="first_name" name="first_name" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="First Name"
+                            value="{{ old('first_name', $user->first_name ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('first_name')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Last Name -->
+                    <div>
+                        <label for="last_name" class="label-text block mb-2">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="Last Name"
+                            value="{{ old('last_name', $user->last_name ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('last_name')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        <label for="phone_number" class="label-text block mb-2">Phone Number</label>
+                        <input type="tel" id="phone_number" name="phone_number" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="Phone Number"
+                            value="{{ old('phone_number', $user->phone ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('phone_number')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Address -->
+                    <div>
+                        <label for="address" class="label-text block mb-2">Address</label>
+                        <input type="text" id="address" name="address" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="Address"
+                            value="{{ old('address', $user->address ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('address')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Nature of Work -->
+                    <div>
+                        <label for="nature_of_work" class="label-text block mb-2">Nature of Work</label>
+                        <input type="text" id="nature_of_work" name="nature_of_work" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="Self-employed, Farmer, etc."
+                            value="{{ old('nature_of_work', $user->nature_of_work ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('nature_of_work')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Employer/Business Name -->
+                    <div>
+                        <label for="employer_business_name" class="label-text block mb-2">Employer or Business Name</label>
+                        <input type="text" id="employer_business_name" name="employer_business_name" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="Employer or Business Name"
+                            value="{{ old('employer_business_name', $user->employer_business_name ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('employer_business_name')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Date of Employment -->
+                    <div>
+                        <label for="date_of_employment" class="label-text block mb-2">Date of Employment</label>
+                        <input type="date" id="date_of_employment" name="date_of_employment" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            value="{{ old('date_of_employment', optional($user->date_of_employment)->format('Y-m-d') ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('date_of_employment')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- TIN Number -->
+                    <div>
+                        <label for="tin_number" class="label-text block mb-2">TIN Number</label>
+                        <input type="text" id="tin_number" name="tin_number" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="123-456-789-000"
+                            value="{{ old('tin_number', $user->tin_number ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('tin_number')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- SSS/GSIS Number -->
+                    <div>
+                        <label for="sss_gsis_no" class="label-text block mb-2">SSS/GSIS Number</label>
+                        <input type="text" id="sss_gsis_no" name="sss_gsis_no" required
+                            class="input-focus block w-full px-4 py-3 rounded-md"
+                            placeholder="01-2345678-9"
+                            value="{{ old('sss_gsis_no', $user->sss_gsis_no ?? '') }}"
+                            style="background-color: #1f2937; border: 1px solid #374151; color: #d1d5db;">
+                        @error('sss_gsis_no')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <p class="text-xs mb-3" style="color: #9ca3af;">
+                            By continuing, you agree to keep your information accurate.
+                        </p>
+                        <button type="submit" class="btn-hover" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Complete Profile</span>
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            <!-- Phone -->
-            <div>
-                <label for="phone_number" class="block text-xs font-semibold text-gray-600 mb-2">Phone</label>
-                <input
-                    id="phone_number"
-                    name="phone_number"
-                    type="tel"
-                    autocomplete="tel"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="Phone Number"
-                    value="{{ old('phone_number', $user->phone ?? '') }}"
-                >
-                @error('phone_number')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
+            <!-- Back Button -->
+            <div class="text-center animate-fade-in" style="animation-delay: 0.5s;">
+                <a href="{{ route('user.profile.pending') }}" class="text-sm" style="color: #10b981; text-decoration: none;">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Pending Confirmation
+                </a>
             </div>
 
-            <!-- Address -->
-            <div>
-                <label for="address" class="block text-xs font-semibold text-gray-600 mb-2">Address</label>
-                <input
-                    id="address"
-                    name="address"
-                    type="text"
-                    autocomplete="street-address"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="Address"
-                    value="{{ old('address', $user->address ?? '') }}"
-                >
-                @error('address')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
+            <!-- Security Notice -->
+            <div class="text-center text-sm animate-fade-in" style="animation-delay: 0.6s; color: #6b7280; margin-top: 32px;">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-shield-alt" style="color: #9ca3af; margin-right: 8px;"></i>
+                    <span>Secure Member Access Only</span>
+                </div>
             </div>
-
-            <!-- Nature of Work -->
-            <div>
-                <label for="nature_of_work" class="block text-xs font-semibold text-gray-600 mb-2">Nature of Work</label>
-                <input
-                    id="nature_of_work"
-                    name="nature_of_work"
-                    type="text"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="Self-employed, Farmer, etc."
-                    value="{{ old('nature_of_work', $user->nature_of_work ?? '') }}"
-                >
-                @error('nature_of_work')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Employer/Business Name -->
-            <div>
-                <label for="employer_business_name" class="block text-xs font-semibold text-gray-600 mb-2">Employer or Business</label>
-                <input
-                    id="employer_business_name"
-                    name="employer_business_name"
-                    type="text"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="Employer or Business Name"
-                    value="{{ old('employer_business_name', $user->employer_business_name ?? '') }}"
-                >
-                @error('employer_business_name')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Date of Employment -->
-            <div>
-                <label for="date_of_employment" class="block text-xs font-semibold text-gray-600 mb-2">Date of Employment</label>
-                <input
-                    id="date_of_employment"
-                    name="date_of_employment"
-                    type="date"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    value="{{ old('date_of_employment', optional($user->date_of_employment)->format('Y-m-d') ?? '') }}"
-                >
-                @error('date_of_employment')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- TIN Number -->
-            <div>
-                <label for="tin_number" class="block text-xs font-semibold text-gray-600 mb-2">TIN Number</label>
-                <input
-                    id="tin_number"
-                    name="tin_number"
-                    type="text"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="123-456-789-000"
-                    value="{{ old('tin_number', $user->tin_number ?? '') }}"
-                >
-                @error('tin_number')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- SSS/GSIS Number -->
-            <div>
-                <label for="sss_gsis_no" class="block text-xs font-semibold text-gray-600 mb-2">SSS/GSIS Number</label>
-                <input
-                    id="sss_gsis_no"
-                    name="sss_gsis_no"
-                    type="text"
-                    required
-                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                    placeholder="01-2345678-9"
-                    value="{{ old('sss_gsis_no', $user->sss_gsis_no ?? '') }}"
-                >
-                @error('sss_gsis_no')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Submit Button -->
-            <div class="pt-4">
-                <p class="text-xs text-gray-500 mb-3">
-                    By continuing, you agree to keep your information accurate.
-                </p>
-                <button
-                    type="submit"
-                    class="w-full group relative inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform duration-200 {{ $themeConfig['button'] }} hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 {{ $themeConfig['ring'] }}"
-                >
-                    Complete Profile
-                </button>
-            </div>
-        </form>
-            </div>
+        </div>
     </div>
-</div>
-@endsection
+</body>
+</html>

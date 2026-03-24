@@ -76,6 +76,11 @@
             100% { transform: translateY(0px) rotate(360deg); }
         }
 
+        /* Ensure body can scroll */
+        html, body {
+            overflow-x: hidden;
+        }
+
         .input-focus {
             transition: all 0.3s ease;
             background-color: #1f2937;
@@ -150,16 +155,16 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 relative overflow-hidden" style="background-color: #111827;">
+<body class="bg-gray-900" style="background-color: #111827; overflow-y: auto;">
     <!-- Floating Background Shapes -->
-    <div class="floating-shapes">
+    <div class="floating-shapes" style="pointer-events: none;">
         <div class="shape"><i class="fas fa-handshake text-4xl"></i></div>
         <div class="shape"><i class="fas fa-lock text-3xl"></i></div>
         <div class="shape"><i class="fas fa-credit-card text-5xl"></i></div>
         <div class="shape"><i class="fas fa-user-circle text-2xl"></i></div>
     </div>
 
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10" style="min-height: auto; padding-top: 3rem; padding-bottom: 3rem;">
         <div class="max-w-md w-full space-y-8 animate-fade-in">
             <!-- Logo/Header Section -->
             <div class="text-center animate-bounce-in">
@@ -280,7 +285,7 @@
                     </div>
                     <div class="text-sm">
                         <a href="{{ route('user.password.generate') }}" class="link-forgot">
-                            Forgot password?
+                            Request Password Change
                         </a>
                     </div>
                 </div>
