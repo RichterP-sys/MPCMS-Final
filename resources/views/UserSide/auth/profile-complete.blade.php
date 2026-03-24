@@ -23,18 +23,76 @@
 </style>
 
 <div class="min-h-screen bg-gradient-to-br {{ $themeConfig['from'] }} {{ $themeConfig['via'] }} {{ $themeConfig['to'] }} flex items-center justify-center py-10 px-4 sm:px-6 lg:px-10">
-    <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-stretch">
+    <div class="w-full max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-stretch">
         <div class="hidden lg:flex flex-col justify-between rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-8 text-white shadow-2xl float-slow">
             <div>
                 <span class="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
-                    {{ $brandName }} Account
+                    MPCMS Account
                 </span>
                 <h1 class="mt-6 text-3xl font-bold leading-tight">
-                    Welcome back, {{ $displayName }}
+                    Welcome!
                 </h1>
                 <p class="mt-3 text-sm text-white/80">
                     Complete your profile to unlock personalized features and faster approvals.
                 </p>
+
+                <!-- Profile Status Progress Box -->
+                <div class="mt-6 bg-white rounded-xl shadow-lg p-4">
+                    <div class="flex flex-col space-y-4">
+                        <!-- Step 1: Registration -->
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3 flex-1">
+                                <div class="h-1 bg-green-500 rounded"></div>
+                            </div>
+                            <span class="ml-3 text-xs font-bold text-gray-900">Registration</span>
+                        </div>
+
+                        <!-- Step 2: Profile Completion -->
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white flex-shrink-0 animate-pulse">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3 flex-1">
+                                <div class="h-1 bg-gradient-to-r from-blue-500 to-gray-300 rounded"></div>
+                            </div>
+                            <span class="ml-3 text-xs font-bold text-blue-600">In Progress</span>
+                        </div>
+
+                        <!-- Step 3: Admin Approval -->
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3 flex-1">
+                                <div class="h-1 bg-gray-300 rounded"></div>
+                            </div>
+                            <span class="ml-3 text-xs font-bold text-gray-500">Waiting</span>
+                        </div>
+
+                        <!-- Step 4: Account Active -->
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3 flex-1">
+                                <div class="h-1 bg-gray-300 rounded"></div>
+                            </div>
+                            <span class="ml-3 text-xs font-bold text-gray-500">Pending</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="mt-10 space-y-3 text-sm">
                 <div class="flex items-center gap-2">
@@ -45,6 +103,17 @@
                     <span class="inline-block h-2 w-2 rounded-full bg-white/80"></span>
                     <span>Email: {{ $user->email ?? 'Not provided' }}</span>
                 </div>
+                
+                <!-- Logout Button -->
+                <form method="POST" action="{{ route('user.logout') }}" class="mt-6">
+                    @csrf
+                    <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2.5 border border-white/30 text-sm font-semibold rounded-lg text-white bg-white/10 hover:bg-white/20 transition-all duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
             </div>
         </div>
 
