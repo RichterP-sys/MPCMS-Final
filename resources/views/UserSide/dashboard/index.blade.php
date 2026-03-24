@@ -61,7 +61,7 @@
     }
 </style>
 
-<div class="min-h-screen relative overflow-hidden" style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 50%, #faf5ff 100%);">
+<div class="min-h-screen relative overflow-hidden" style="background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #f0fdfa 100%); backdrop-filter: blur(2px);">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-20 left-10 w-72 h-72 rounded-full animate-pulse-slow" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));"></div>
@@ -72,7 +72,7 @@
         
     <div class="relative z-10">
     <!-- Navigation Bar -->
-    <nav class="bg-white/90 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50 shadow-sm">
+    <nav class="bg-white/60 shadow-xl backdrop-blur-2xl border-b border-blue-300/40 sticky top-0 z-30 rounded-b-3xl" style="box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);">
         <div class="absolute bottom-0 left-0 right-0 h-1" style="background: linear-gradient(90deg, #7c3aed, #a855f7, #ec4899, #f97316);"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -84,7 +84,7 @@
                         </svg>
                     </div>
                     <div class="hidden sm:block">
-                        <p class="text-sm font-bold" style="background: linear-gradient(90deg, #7c3aed, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ config('app.name', 'MPCMS') }}</p>
+                        <p class="text-sm font-bold" style="background: linear-gradient(90deg, #7c3aed, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MPCMS</p>
                         <p class="text-xs text-slate-500">Member Portal</p>
                     </div>
                 </a>
@@ -114,7 +114,7 @@
                              style="display: none;">
                             <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
                                 <h3 class="text-sm font-semibold text-slate-800">Notifications</h3>
-                                <span class="text-xs text-slate-500">{{ $activityLogs->count() }} recent · <a href="{{ route('user.dashboard') }}" class="hover:text-blue-600">Refresh</a></span>
+                                <span class="text-xs text-blue-900">{{ $activityLogs->count() }} recent · <a href="{{ route('user.dashboard') }}" class="hover:text-blue-600">Refresh</a></span>
                             </div>
                             <div class="max-h-80 overflow-y-auto">
                                 @forelse($activityLogs->take(5) as $activity)
@@ -134,16 +134,16 @@
                                                 @endif
                                 </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-slate-800 capitalize">{{ str_replace('_', ' ', $activity->activity_type) }}</p>
-                                                <p class="text-xs text-slate-500 truncate">{{ $activity->description }}</p>
-                                                <p class="text-xs text-slate-400 mt-0.5">{{ $activity->created_at->diffForHumans() }}</p>
+                                                <p class="text-sm font-medium text-blue-900 capitalize">{{ str_replace('_', ' ', $activity->activity_type) }}</p>
+                                                <p class="text-xs text-blue-900 truncate">{{ $activity->description }}</p>
+                                                <p class="text-xs text-blue-800 mt-0.5">{{ $activity->created_at->diffForHumans() }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 @empty
                                     <div class="px-4 py-8 text-center">
                                         <svg class="w-10 h-10 text-slate-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                                        <p class="text-sm text-slate-500">No notifications</p>
+                                        <p class="text-sm text-blue-900">No notifications</p>
                                 </div>
                                 @endforelse
                             </div>
@@ -160,45 +160,44 @@
 
                     <!-- User Dropdown -->
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-600 hover:bg-purple-50 transition">
-                            <div class="h-8 w-8 rounded-lg flex items-center justify-center shadow-sm" style="background: linear-gradient(135deg, #7c3aed, #ec4899);">
-                                <span class="text-white font-semibold text-sm">{{ substr($member->first_name, 0, 1) }}</span>
-                                </div>
-                            <span class="hidden sm:block text-sm font-medium text-slate-700">{{ $member->first_name }}</span>
-                            <svg class="w-4 h-4 text-slate-400 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-600 hover:bg-blue-100 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <div class="h-9 w-9 rounded-full flex items-center justify-center shadow-sm" style="background: linear-gradient(135deg, #26667F, #124170);">
+                                <span class="text-white font-bold text-base">{{ substr($member->first_name, 0, 1) }}</span>
+                            </div>
+                            <span class="hidden sm:block text-base font-semibold text-blue-900">{{ $member->first_name }}</span>
+                            <svg class="w-4 h-4 text-blue-700 transition-transform" :class="open ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
-                        
-                        <!-- Dropdown Menu -->
-                        <div x-show="open" 
-                             @click.away="open = false"
-                             x-transition:enter="transition ease-out duration-150"
-                             x-transition:enter-start="opacity-0 scale-95"
-                             x-transition:enter-end="opacity-100 scale-100"
-                             x-transition:leave="transition ease-in duration-100"
-                             x-transition:leave-start="opacity-100 scale-100"
-                             x-transition:leave-end="opacity-0 scale-95"
-                             class="absolute right-0 mt-2 w-56 rounded-xl bg-white border border-slate-200 shadow-lg py-1 z-50"
-                             style="display: none;">
-                            <div class="px-4 py-3 border-b border-slate-100">
-                                <p class="text-sm font-semibold text-slate-800">{{ $member->first_name }} {{ $member->last_name }}</p>
-                                <p class="text-xs text-slate-500 truncate">{{ $member->email }}</p>
-                                            </div>
-                            <div class="py-1">
-                                <a href="{{ route('user.loans.index') }}" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                    My Loans
-                                </a>
-                                <a href="{{ route('user.report') }}" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                                    Reports
-                                </a>
+                        <!-- Profile Slideout -->
+                            <div x-show="open" @click.away="open = false" x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="translate-x-8 opacity-0 scale-95" x-transition:enter-end="translate-x-0 opacity-100 scale-100" x-transition:leave="transition transform ease-in duration-200" x-transition:leave-start="translate-x-0 opacity-100 scale-100" x-transition:leave-end="translate-x-8 opacity-0 scale-95"
+                                class="absolute right-0 mt-2 w-80 rounded-2xl bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 shadow-2xl ring-1 ring-blue-200/40 z-50 flex flex-col border border-blue-200/60 backdrop-blur-xl"
+                                style="min-width: 320px; max-height: 420px; overflow: hidden;">
+                            <div class="flex items-center gap-4 px-6 py-6 border-b border-blue-200/40 bg-blue-100/90 rounded-t-2xl">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#26667F] to-[#124170] flex items-center justify-center text-white font-bold text-xl shadow-lg border-2 border-white/30">
+                                    {{ substr($member->first_name, 0, 1) }}
                                 </div>
-                            <div class="border-t border-slate-100 py-1">
-                                <form method="POST" action="{{ route('user.logout') }}">
-                                    @csrf
-                                    <button type="submit" class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                <div>
+                                    <p class="text-base font-bold text-blue-900 drop-shadow">{{ $member->first_name }} {{ $member->last_name }}</p>
+                                    <p class="text-xs text-blue-700/90">{{ $member->email }}</p>
+                                </div>
+                                <button @click="open = false" class="ml-auto text-blue-700 hover:text-blue-900 transition text-xl focus:outline-none"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between">
+                                <div class="py-4 px-6 space-y-2">
+                                    <a href="{{ route('user.loans.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                        My Loans
+                                    </a>
+                                    <a href="{{ route('user.report') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                        Reports
+                                    </a>
+                                </div>
+                                <div class="py-4 px-6 border-t border-blue-200/40 bg-blue-50/80 rounded-b-2xl">
+                                    <form method="POST" action="{{ route('user.logout') }}">
+                                        @csrf
+                                    <button type="submit" class="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-base font-medium text-white bg-red-600 hover:bg-red-700 transition text-left">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                                         Sign Out
                                     </button>
@@ -212,11 +211,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="relative overflow-hidden animate-gradient-x" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 25%, #ec4899 50%, #f97316 75%, #7c3aed 100%); background-size: 200% 200%;">
+    <div class="relative overflow-hidden animate-gradient-x" style="background: linear-gradient(135deg, #6366f1 0%, #7c3aed 30%, #a855f7 60%, #ec4899 90%); background-size: 200% 200%; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10); border-radius: 0 0 2rem 2rem;">
         <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.08&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
         <div class="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl animate-float" style="background: rgba(255,255,255,0.1);"></div>
         <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full blur-3xl animate-float-delayed" style="background: rgba(255,255,255,0.1);"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
                     <div class="flex flex-wrap items-center gap-2 mb-3">
@@ -228,10 +227,10 @@
                             Member since {{ $member->join_date ? $member->join_date->format('M Y') : 'N/A' }}
                         </span>
                     </div>
-                    <h1 class="text-3xl sm:text-4xl font-bold text-white mb-2">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white drop-shadow mb-2 tracking-tight">
                         Welcome back, {{ $member->first_name }}!
                     </h1>
-                    <p class="text-sm sm:text-base" style="color: rgba(255,255,255,0.85);">
+                    <p class="text-base sm:text-lg" style="color: rgba(255,255,255,0.92); text-shadow: 0 1px 2px rgba(0,0,0,0.08);">
                         Here's your account overview for today.
                     </p>
                 </div>
@@ -250,7 +249,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="{ lastUpdated: '{{ now()->toIso8601String() }}' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" x-data="{ lastUpdated: '{{ now()->toIso8601String() }}' }">
         <!-- Last Updated & Refresh -->
         <div class="flex items-center justify-between mb-4">
             <p class="text-xs text-slate-500">Last updated: <span x-text="new Date(lastUpdated).toLocaleString()"></span></p>
@@ -260,9 +259,9 @@
             </a>
         </div>
         <!-- Stats Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
             <!-- Net Account Balance -->
-            <div class="relative overflow-hidden rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all {{ ($netBalance ?? 0) >= 0 ? 'card-gradient-green' : '' }}" style="{{ ($netBalance ?? 0) < 0 ? 'background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);' : '' }}">
+            <div class="relative overflow-hidden rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all {{ ($netBalance ?? 0) >= 0 ? 'card-gradient-green' : '' }}" style="{{ ($netBalance ?? 0) < 0 ? 'background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);' : 'background: rgba(255,255,255,0.25); backdrop-filter: blur(8px);' }} border: 1.5px solid #e0e7ff;">
                 <div class="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-8 translate-x-8" style="background: rgba(255,255,255,0.15);"></div>
                 <div class="absolute bottom-0 left-0 w-16 h-16 rounded-full translate-y-6 -translate-x-6" style="background: rgba(255,255,255,0.1);"></div>
                 <div class="relative">
@@ -278,7 +277,7 @@
                 </div>
             </div>
             <!-- Total Contributions -->
-            <div class="relative overflow-hidden rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);">
+            <div class="relative overflow-hidden rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%); border: 1.5px solid #dbeafe;">
                 <div class="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-8 translate-x-8" style="background: rgba(255,255,255,0.15);"></div>
                 <div class="absolute bottom-0 left-0 w-16 h-16 rounded-full translate-y-6 -translate-x-6" style="background: rgba(255,255,255,0.1);"></div>
                 <div class="relative">
@@ -294,7 +293,7 @@
             </div>
 
             <!-- Active Loans -->
-            <div class="relative overflow-hidden rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);">
+            <div class="relative overflow-hidden rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #f97316 0%, #ec4899 100%); border: 1.5px solid #fbcfe8;">
                 <div class="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-8 translate-x-8" style="background: rgba(255,255,255,0.15);"></div>
                 <div class="absolute bottom-0 left-0 w-16 h-16 rounded-full translate-y-6 -translate-x-6" style="background: rgba(255,255,255,0.1);"></div>
                 <div class="relative">
@@ -312,7 +311,7 @@
                     </div>
 
             <!-- Days as Member -->
-            <div class="relative overflow-hidden rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);">
+            <div class="relative overflow-hidden rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); border: 1.5px solid #ede9fe;">
                 <div class="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-8 translate-x-8" style="background: rgba(255,255,255,0.15);"></div>
                 <div class="absolute bottom-0 left-0 w-16 h-16 rounded-full translate-y-6 -translate-x-6" style="background: rgba(255,255,255,0.1);"></div>
                 <div class="relative">
@@ -327,7 +326,7 @@
                             </div>
 
             <!-- Account Status -->
-            <div class="relative overflow-hidden rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);">
+            <div class="relative overflow-hidden rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all" style="background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%); border: 1.5px solid #d1fae5;">
                 <div class="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-8 translate-x-8" style="background: rgba(255,255,255,0.15);"></div>
                 <div class="absolute bottom-0 left-0 w-16 h-16 rounded-full translate-y-6 -translate-x-6" style="background: rgba(255,255,255,0.1);"></div>
                 <div class="relative">
@@ -348,7 +347,7 @@
         <!-- Content Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Quick Start Guide Card -->
-            <div class="lg:col-span-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6">
+            <div class="lg:col-span-3 bg-white/60 backdrop-blur-xl border-2 border-blue-200 rounded-2xl p-8 shadow-xl" style="box-shadow: 0 4px 24px 0 rgba(59, 130, 246, 0.08);">
                 <div class="flex items-start gap-4">
                     <div class="flex-shrink-0">
                         <svg class="h-8 w-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
@@ -394,7 +393,7 @@
             <!-- Left Column -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Recent Contributions -->
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200/60 shadow-lg overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between" style="background: linear-gradient(90deg, rgba(219, 234, 254, 0.5), rgba(224, 231, 255, 0.5));">
                         <div>
                             <h3 class="text-base font-semibold text-slate-800">Recent Contributions</h3>
@@ -430,7 +429,7 @@
                 </div>
 
                 <!-- Active Loans -->
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200/60 shadow-lg overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-100" style="background: linear-gradient(90deg, rgba(255, 237, 213, 0.5), rgba(252, 231, 243, 0.5));">
                         <h3 class="text-base font-semibold text-slate-800">Active Loans</h3>
                         <p class="text-sm text-slate-500">Track your loan applications</p>
@@ -489,7 +488,7 @@
                 </div>
 
                 <!-- Recent Repayments & Receipts -->
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200/60 shadow-lg overflow-hidden">
                     <div class="px-5 py-4 border-b border-slate-100" style="background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1));">
                         <div class="flex items-center justify-between">
                             <h3 class="text-base font-semibold text-slate-800">Recent Repayments</h3>
@@ -560,7 +559,7 @@
             <!-- Right Column -->
             <div class="space-y-6">
                 <!-- Quick Actions -->
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5">
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200/60 shadow-lg p-6">
                     <h3 class="text-base font-semibold text-slate-800 mb-4">Quick Actions</h3>
                     <div class="space-y-2">
                         <a href="{{ route('user.loans.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 border border-transparent hover:border-blue-100 transition-all group">
@@ -617,7 +616,7 @@
                                             </div>
 
                 <!-- Recent Activity -->
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200/60 shadow-lg overflow-hidden">
                     <div class="px-5 py-4 border-b border-slate-100" style="background: linear-gradient(90deg, rgba(167, 139, 250, 0.1), rgba(192, 132, 252, 0.1));">
                         <h3 class="text-base font-semibold text-slate-800">Recent Activity</h3>
                                             </div>
@@ -664,7 +663,7 @@
                 </div>
 
                 <!-- Member Card -->
-                <div class="relative overflow-hidden rounded-2xl p-5 text-white shadow-lg" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);">
+                <div class="relative overflow-hidden rounded-2xl p-6 text-white shadow-2xl" style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.18);">
                     <div class="absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-12 translate-x-12" style="background: rgba(255,255,255,0.1);"></div>
                     <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full translate-y-8 -translate-x-8" style="background: rgba(255,255,255,0.1);"></div>
                     <div class="absolute top-1/2 right-4 w-16 h-16 rounded-full blur-xl" style="background: rgba(244, 114, 182, 0.3);"></div>

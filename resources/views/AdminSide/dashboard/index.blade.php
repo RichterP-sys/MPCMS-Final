@@ -46,9 +46,9 @@
     }
 </style>
 
-<div class="space-y-6">
+<div class="space-y-8">
     <!-- Welcome Banner -->
-    <div class="relative overflow-hidden rounded-2xl p-6 lg:p-8" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #4338ca 50%, #6366f1 75%, #818cf8 100%);">
+    <div class="relative overflow-hidden rounded-2xl shadow-lg p-8 lg:p-12 mb-2 backdrop-blur" style="background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #2563eb 100%);">
         <!-- Animated background shapes for banner -->
         <div class="admin-animated-bg pointer-events-none select-none">
             <div class="admin-bg-circle admin-bg-circle-1"></div>
@@ -115,18 +115,14 @@
                     <i class="fas fa-chart-bar"></i>
                     <span>View Reports</span>
                 </a>
-                <a href="{{ route('admin.member-registration.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-indigo-50 text-indigo-600 text-sm font-medium rounded-xl shadow-lg shadow-indigo-500/25 transition">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Member</span>
-                </a>
             </div>
         </div>
     </div>
 
     <!-- Stats Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Total Members -->
-        <a href="{{ route('admin.members.index') }}" class="stat-card stat-card-blue bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 block group">
+        <a href="{{ route('admin.members.index') }}" class="stat-card stat-card-blue bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-blue-100 block group transition">
             <div class="flex items-start justify-between">
                 <div>
                     <p class="text-sm font-medium text-slate-500">Total Members</p>
@@ -150,7 +146,7 @@
         </a>
 
         <!-- Active Loans -->
-        <a href="{{ route('admin.finance.index', ['tab' => 'loans']) }}" class="stat-card stat-card-amber bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 block group">
+        <a href="{{ route('admin.finance.index', ['tab' => 'loans']) }}" class="stat-card stat-card-amber bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-yellow-100 block group transition">
             <div class="flex items-start justify-between">
                 <div>
                     <p class="text-sm font-medium text-slate-500">Active Loans</p>
@@ -174,7 +170,7 @@
         </a>
 
         <!-- Total Contributions -->
-        <a href="{{ route('admin.finance.index', ['tab' => 'contributions']) }}" class="stat-card stat-card-emerald bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 block group">
+        <a href="{{ route('admin.finance.index', ['tab' => 'contributions']) }}" class="stat-card stat-card-emerald bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-green-100 block group transition">
             <div class="flex items-start justify-between">
                 <div>
                     <p class="text-sm font-medium text-slate-500">Total Contributions</p>
@@ -198,7 +194,7 @@
         </a>
 
         <!-- Due Loans -->
-        <a href="{{ route('admin.finance.repayment-confirmation') }}" class="stat-card stat-card-red bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 block group">
+        <a href="{{ route('admin.finance.repayment-confirmation') }}" class="stat-card stat-card-red bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-pink-100 block group transition">
             <div class="flex items-start justify-between">
                 <div>
                     <p class="text-sm font-medium text-slate-500">Due Loans</p>
@@ -221,9 +217,9 @@
     </div>
 
     <!-- Charts Row -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Monthly Overview -->
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-blue-100 hover-lift">
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h3 class="text-lg font-semibold text-slate-900 flex items-center gap-2">
@@ -247,7 +243,7 @@
         </div>
 
         <!-- Recent Activities -->
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-violet-100 hover-lift">
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h3 class="text-lg font-semibold text-slate-900 flex items-center gap-2">
@@ -298,7 +294,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60">
+    <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-amber-100">
         <h3 class="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
             <i class="fas fa-bolt text-amber-500"></i>
             <span>Quick Actions</span>
@@ -350,9 +346,9 @@
     </div>
 
     <!-- Charts Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Member Growth -->
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-blue-100 hover-lift">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                     <i class="fas fa-users text-white text-sm"></i>
@@ -365,7 +361,7 @@
         </div>
 
         <!-- Loan Status -->
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-yellow-100 hover-lift">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center">
                     <i class="fas fa-chart-pie text-white text-sm"></i>
@@ -378,7 +374,7 @@
         </div>
 
         <!-- Monthly Revenue -->
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-green-100 hover-lift">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
                     <i class="fas fa-peso-sign text-white text-sm"></i>

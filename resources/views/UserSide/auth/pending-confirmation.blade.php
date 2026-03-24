@@ -6,8 +6,8 @@
     <div class="max-w-md w-full space-y-8 glass-panel rounded-2xl shadow-2xl p-8 text-center fade-in-up">
         @if (session('success'))
         <div>
-            <div class="mx-auto h-16 w-16 bg-green-100 rounded-full flex items-center justify-center">
-                <svg class="h-10 w-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="mx-auto h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg class="h-10 w-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>

@@ -3,56 +3,50 @@
 @section('title', 'Activity Logs')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-8">
     <!-- Header -->
-    <div class="bg-blue-600 rounded-lg p-6 lg:p-8">
-        <h1 class="text-2xl lg:text-3xl font-bold text-white">Activity Logs</h1>
-        <p class="text-blue-100 mt-1">Track all member and system activities</p>
+    <div class="relative overflow-hidden rounded-2xl shadow-lg p-6 lg:p-8" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #3b82f6 100%);">
+        <h1 class="text-2xl lg:text-3xl font-bold text-white drop-shadow">Activity Logs</h1>
+        <p class="text-white/90 mt-1 font-medium">Track all member and system activities</p>
     </div>
 
     <!-- Stats -->
-    <div class="grid grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg p-5 shadow border border-slate-200">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
-                    <i class="fas fa-list text-white"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Logs</p>
-                    <p class="text-xl font-bold text-slate-900">{{ number_format($totalLogs) }}</p>
-                </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-blue-100 p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center shadow text-lg">
+                <i class="fas fa-list text-white"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">Total Logs</p>
+                <p class="text-2xl font-bold text-blue-900">{{ number_format($totalLogs) }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-lg p-5 shadow border border-slate-200">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-yellow-600 flex items-center justify-center">
-                    <i class="fas fa-calendar-day text-white"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Today</p>
-                    <p class="text-xl font-bold text-slate-900">{{ $todayLogs }}</p>
-                </div>
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-blue-100 p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center shadow text-lg">
+                <i class="fas fa-calendar-day text-white"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-yellow-700 uppercase tracking-wide">Today</p>
+                <p class="text-2xl font-bold text-blue-900">{{ $todayLogs }}</p>
             </div>
         </div>
-        <div class="bg-white rounded-lg p-5 shadow border border-slate-200">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center">
-                    <i class="fas fa-sign-in-alt text-white"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Login Events</p>
-                    <p class="text-xl font-bold text-slate-900">{{ $loginLogs }}</p>
-                </div>
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-blue-100 p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-green-600 flex items-center justify-center shadow text-lg">
+                <i class="fas fa-sign-in-alt text-white"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-green-700 uppercase tracking-wide">Login Events</p>
+                <p class="text-2xl font-bold text-blue-900">{{ $loginLogs }}</p>
             </div>
         </div>
     </div>
 
     <!-- Filters -->
-    <div class="bg-white rounded-lg shadow border border-slate-200 p-4">
+    <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-blue-100 p-4">
         <form method="GET" class="flex flex-wrap items-end gap-4">
             <div class="flex-1 min-w-48">
-                <label class="block text-xs font-medium text-slate-600 mb-1">Member</label>
-                <select name="member_id" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <label class="block text-xs font-semibold text-blue-700 mb-1">Member</label>
+                <select name="member_id" class="w-full text-sm border border-blue-100 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">All Members</option>
                     @foreach($members as $m)
                         <option value="{{ $m->id }}" {{ request('member_id') == $m->id ? 'selected' : '' }}>{{ $m->first_name }} {{ $m->last_name }}</option>
@@ -60,8 +54,8 @@
                 </select>
             </div>
             <div class="min-w-40">
-                <label class="block text-xs font-medium text-slate-600 mb-1">Activity Type</label>
-                <select name="type" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <label class="block text-xs font-semibold text-blue-700 mb-1">Activity Type</label>
+                <select name="type" class="w-full text-sm border border-blue-100 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">All Types</option>
                     @foreach($activityTypes as $type)
                         <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ ucfirst(str_replace('_', ' ', $type)) }}</option>
@@ -69,38 +63,38 @@
                 </select>
             </div>
             <div class="min-w-36">
-                <label class="block text-xs font-medium text-slate-600 mb-1">From</label>
-                <input type="date" name="date_from" value="{{ request('date_from') }}" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <label class="block text-xs font-semibold text-blue-700 mb-1">From</label>
+                <input type="date" name="date_from" value="{{ request('date_from') }}" class="w-full text-sm border border-blue-100 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div class="min-w-36">
-                <label class="block text-xs font-medium text-slate-600 mb-1">To</label>
-                <input type="date" name="date_to" value="{{ request('date_to') }}" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <label class="block text-xs font-semibold text-blue-700 mb-1">To</label>
+                <input type="date" name="date_to" value="{{ request('date_to') }}" class="w-full text-sm border border-blue-100 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg transition hover:bg-blue-700">
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg transition hover:bg-blue-700 shadow">
                 <i class="fas fa-search mr-2"></i>Filter
             </button>
-            <a href="{{ route('admin.reports.activity-logs') }}" class="px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition">Clear</a>
-            <a href="{{ route('admin.reports.activity-logs.export', request()->all()) }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition">
+            <a href="{{ route('admin.reports.activity-logs') }}" class="px-4 py-2 text-sm font-semibold text-blue-700 bg-blue-50 rounded-lg hover:bg-blue-100 transition">Clear</a>
+            <a href="{{ route('admin.reports.activity-logs.export', request()->all()) }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-100 text-blue-700 text-sm font-semibold rounded-lg hover:bg-blue-50 transition">
                 <i class="fas fa-file-csv"></i> Export CSV
             </a>
         </form>
     </div>
 
     <!-- Logs Table -->
-    <div class="bg-white rounded-lg shadow border border-slate-200 overflow-hidden">
+    <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-blue-100 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-slate-50 border-b border-slate-200">
+                <thead class="bg-blue-50 border-b border-blue-100">
                     <tr>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Member</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Type</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Description</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">IP Address</th>
-                        <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Date & Time</th>
-                        <th class="px-6 py-3.5 text-center text-xs font-semibold text-slate-700 uppercase tracking-wide">Action</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-blue-900 uppercase tracking-wide">Member</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-blue-900 uppercase tracking-wide">Type</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-blue-900 uppercase tracking-wide">Description</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-blue-900 uppercase tracking-wide">IP Address</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-blue-900 uppercase tracking-wide">Date & Time</th>
+                        <th class="px-6 py-3.5 text-center text-xs font-bold text-blue-900 uppercase tracking-wide">Action</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-200">
+                <tbody class="divide-y divide-blue-100">
                     @forelse($logs as $log)
                     @php
                         $typeColors = [

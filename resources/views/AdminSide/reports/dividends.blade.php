@@ -24,7 +24,7 @@
             </div>
             <div class="flex flex-wrap gap-2">
                 <form method="GET" class="flex items-center gap-2">
-                    <select name="year" onchange="this.form.submit()" class="px-3 py-2.5 text-sm bg-white/10 border border-white/20 rounded-xl text-white backdrop-blur focus:ring-2 focus:ring-white/30">
+                    <select name="year" onchange="this.form.submit()" class="px-3 py-2.5 text-sm bg-white/10 border border-white/20 rounded-xl text-violet backdrop-blur focus:ring-2 focus:ring-white/30">
                         @foreach($availableYears as $y)
                             <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }} class="text-slate-900">{{ $y }}</option>
                         @endforeach
@@ -72,34 +72,34 @@
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                    <i class="fas fa-chart-bar text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg shadow-red-500/20">
+                    <i class="fas fa-percent text-white"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase">Average</p>
-                    <p class="text-xl font-bold text-amber-600">₱{{ number_format($averageDividend, 2) }}</p>
+                    <p class="text-xl font-bold text-yellow-600">₱{{ number_format($averageDividend, 2) }}</p>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                    <i class="fas fa-check-circle text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/20">
+                    <i class="fas fa-badge-check text-white"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase">Released</p>
-                    <p class="text-xl font-bold text-emerald-600">{{ $releasedCount }}</p>
+                    <p class="text-xl font-bold text-green-600">{{ $releasedCount }}</p>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
-                    <i class="fas fa-clock text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                    <i class="fas fa-hourglass-half text-white"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase">Pending</p>
-                    <p class="text-xl font-bold text-rose-600">{{ $pendingCount }}</p>
+                    <p class="text-xl font-bold text-red-600">{{ $pendingCount }}</p>
                 </div>
             </div>
         </div>
@@ -178,9 +178,12 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             @if($dividend->status === 'released')
-                                <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full shadow-sm">Released</span>
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-500 rounded-full shadow-sm">
+                                    <i class="fas fa-badge-check text-white"></i>
+                                    Released
+                                </span>
                             @else
-                                <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium text-white bg-gradient-to-r from-amber-400 to-orange-400 rounded-full shadow-sm">Pending</span>
+                                <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium text-white bg-gradient-to-r from-yellow-400 to-yellow-400 rounded-full shadow-sm">Pending</span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-center">

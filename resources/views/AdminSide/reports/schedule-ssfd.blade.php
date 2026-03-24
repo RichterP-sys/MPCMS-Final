@@ -3,71 +3,71 @@
 @section('title', 'Special Savings Fund Deposit (SSFD)')
 
 @section('content')
-<div class="space-y-6">
-    <div class="relative overflow-hidden rounded-lg p-6 lg:p-8" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);">
-        <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+<div class="space-y-8">
+    <div class="bg-gradient-to-br from-indigo-900 via-blue-800 to-blue-600 rounded-2xl p-8 shadow-xl relative overflow-hidden">
+        <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <a href="{{ route('admin.reports.schedule') }}" class="text-gray-100 hover:text-white transition"><i class="fas fa-arrow-left"></i></a>
-                    <h1 class="text-2xl font-bold text-white">Special Savings Fund Deposit (SSFD)</h1>
+                <div class="flex items-center gap-4 mb-2">
+                    <a href="{{ route('admin.reports.schedule') }}" class="text-indigo-100 hover:text-white transition text-lg"><i class="fas fa-arrow-left"></i></a>
+                    <h1 class="text-3xl font-extrabold text-white drop-shadow">Special Savings Fund Deposit (SSFD)</h1>
                 </div>
-                <p class="text-gray-100">For the Month of Jan. to Dec. 31, {{ $year }}</p>
+                <p class="text-indigo-100/90 text-base font-medium">For the Month of Jan. to Dec. 31, {{ $year }}</p>
             </div>
-            <div class="flex flex-wrap items-center gap-3">
+            <div class="flex flex-wrap items-center gap-4">
                 <form method="GET" action="{{ route('admin.reports.schedule') }}" class="flex items-center gap-2">
-                    <label class="text-sm text-white">Year:</label>
-                    <select name="year" onchange="this.form.submit()" class="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 text-sm focus:ring-2 focus:ring-blue-500">
+                    <label class="text-base text-white font-semibold">Year:</label>
+                    <select name="year" onchange="this.form.submit()" class="px-4 py-2 rounded-xl bg-white border border-indigo-200 text-indigo-900 text-base font-semibold focus:ring-2 focus:ring-indigo-400 shadow-sm">
                         @foreach($availableYears as $y)
                         <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>{{ $y }}</option>
                         @endforeach
                     </select>
                 </form>
-                <a href="{{ route('admin.reports.schedule.ssfd.export', ['year' => $year]) }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/15 hover:bg-white/25 border border-white/20 text-white text-sm font-medium rounded-xl">
+                <a href="{{ route('admin.reports.schedule.ssfd.export', ['year' => $year]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 border border-indigo-800 text-white text-base font-semibold rounded-xl shadow transition">
                     <i class="fas fa-file-csv"></i> Export CSV
                 </a>
-                <button onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/15 hover:bg-white/25 border border-white/20 text-white text-sm font-medium rounded-xl">
+                <button onclick="window.print()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 border border-indigo-800 text-white text-base font-semibold rounded-xl shadow transition">
                     <i class="fas fa-print"></i> Print
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden print:shadow-none">
-        <div class="p-6 print:p-4">
+    <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-indigo-100 overflow-hidden print:shadow-none">
+        <div class="p-8 print:p-4">
             @include('AdminSide.reports.partials.schedule-header')
-            <h3 class="text-center font-bold text-slate-900 mb-2">SPECIAL SAVINGS FUND DEPOSIT (SSFD)</h3>
-            <p class="text-center text-sm text-slate-600 mb-4">For the Month of Jan. to Dec. 31, {{ $year }}</p>
+            <h3 class="text-center font-extrabold text-indigo-900 text-xl mb-2">SPECIAL SAVINGS FUND DEPOSIT (SSFD)</h3>
+            <p class="text-center text-base text-indigo-700/80 mb-4">For the Month of Jan. to Dec. 31, {{ $year }}</p>
             @if(!$blocks->isEmpty())
-            <div class="flex justify-end mb-2">
-                <span class="font-bold text-slate-900">GRAND TOTAL: {{ number_format($grandTotal, 2) }}</span>
+            <div class="flex justify-end mb-4">
+                <span class="font-extrabold text-indigo-900 text-lg">GRAND TOTAL: {{ number_format($grandTotal, 2) }}</span>
             </div>
             @endif
 
             @if($blocks->isEmpty())
             <div class="text-center py-12 text-slate-500">No SSFD data for {{ $year }}.</div>
             @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($blocks as $block)
-                <div class="border border-slate-300">
-                    <table class="w-full border-collapse text-sm">
+                <div class="border border-indigo-200 rounded-xl shadow group hover:shadow-xl transition overflow-hidden">
+                    <table class="w-full border-collapse text-base rounded-xl overflow-hidden">
                         <thead>
-                            <tr class="bg-indigo-100">
-                                <th class="border border-slate-300 px-2 py-1.5 text-left font-semibold w-10">No.</th>
-                                <th class="border border-slate-300 px-2 py-1.5 text-left font-semibold">Names</th>
-                                <th class="border border-slate-300 px-2 py-1.5 text-right font-semibold">Amount</th>
+                            <tr class="bg-indigo-50">
+                                <th class="border border-indigo-200 px-4 py-2 text-left font-bold w-10">No.</th>
+                                <th class="border border-indigo-200 px-4 py-2 text-left font-bold">Names</th>
+                                <th class="border border-indigo-200 px-4 py-2 text-right font-bold">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($block as $row)
-                            <tr>
-                                <td class="border border-slate-300 px-2 py-1">{{ $row['no'] }}</td>
-                                <td class="border border-slate-300 px-2 py-1">{{ $row['name'] }}</td>
-                                <td class="border border-slate-300 px-2 py-1 text-right">{{ number_format($row['amount'], 2) }}</td>
+                            <tr class="hover:bg-indigo-100/60 transition-colors">
+                                <td class="border border-indigo-200 px-4 py-2">{{ $row['no'] }}</td>
+                                <td class="border border-indigo-200 px-4 py-2">{{ $row['name'] }}</td>
+                                <td class="border border-indigo-200 px-4 py-2 text-right">{{ number_format($row['amount'], 2) }}</td>
                             </tr>
                             @endforeach
-                            <tr class="bg-indigo-100 font-bold">
-                                <td colspan="2" class="border border-slate-300 px-2 py-1.5">TOTAL</td>
-                                <td class="border border-slate-300 px-2 py-1.5 text-right">{{ number_format($block->sum('amount'), 2) }}</td>
+                            <tr class="bg-indigo-50 font-bold">
+                                <td colspan="2" class="border border-indigo-200 px-4 py-2">TOTAL</td>
+                                <td class="border border-indigo-200 px-4 py-2 text-right">{{ number_format($block->sum('amount'), 2) }}</td>
                             </tr>
                         </tbody>
                     </table>

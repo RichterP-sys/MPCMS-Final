@@ -7,15 +7,15 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-slate-900">Members Management</h2>
-            <p class="text-slate-500 mt-1">Manage cooperative members and their information</p>
+            <h2 class="text-3xl font-extrabold text-blue-900 tracking-tight drop-shadow">Members Management</h2>
+            <p class="text-blue-700/80 mt-1">Manage cooperative members and their information</p>
         </div>
         <div class="flex gap-3">
             <div class="relative">
-                <input type="text" placeholder="Search members..." class="w-full sm:w-64 pl-10 pr-4 py-2.5 text-sm bg-white border border-indigo-100 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-300 transition">
-                <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-indigo-400 text-sm"></i>
+                <input type="text" placeholder="Search members..." class="w-full sm:w-64 pl-10 pr-4 py-2.5 text-sm bg-blue-50/80 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-blue-300 transition shadow-sm backdrop-blur">
+                <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-400 text-sm"></i>
             </div>
-            <a href="{{ route('admin.member-registration.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white text-sm font-medium rounded-xl shadow-lg shadow-indigo-500/25 transition">
+            <a href="{{ route('admin.member-registration.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition backdrop-blur">
                 <i class="fas fa-plus"></i>
                 <span class="hidden sm:inline">Add Member</span>
             </a>
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Member Growth Chart -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6 hover-lift">
+    <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-blue-100 p-6 hover:shadow-xl transition">
         <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center">
@@ -57,10 +57,10 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-xl p-5 shadow-lg border border-blue-100 hover:shadow-xl transition">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <i class="fas fa-users text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shadow-md">
+                    <i class="fas fa-users text-blue-700"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total</p>
@@ -68,10 +68,10 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-xl p-5 shadow-lg border border-blue-100 hover:shadow-xl transition">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/20">
-                    <i class="fas fa-check text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center shadow-md">
+                    <i class="fas fa-check text-green-700"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Active</p>
@@ -79,10 +79,10 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-xl p-5 shadow-lg border border-blue-100 hover:shadow-xl transition">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg shadow-yellow-500/20">
-                    <i class="fas fa-clock text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-yellow-100 flex items-center justify-center shadow-md">
+                    <i class="fas fa-clock text-yellow-700"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Pending</p>
@@ -90,10 +90,10 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200/60 hover-lift">
+        <div class="bg-white/80 backdrop-blur rounded-xl p-5 shadow-lg border border-blue-100 hover:shadow-xl transition">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
-                    <i class="fas fa-calendar-plus text-white"></i>
+                <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shadow-md">
+                    <i class="fas fa-calendar-plus text-purple-700"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">This Month</p>
@@ -104,9 +104,9 @@
     </div>
 
     <!-- Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-slate-50 to-indigo-50/30">
-            <h3 class="font-semibold text-slate-900">All Members</h3>
+    <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-blue-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-blue-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-blue-50/80">
+            <h3 class="font-semibold text-blue-900">All Members</h3>
             <form method="GET" action="{{ route('admin.members.index') }}" class="flex flex-wrap gap-2">
                 <select name="status" class="px-3 py-2 text-sm bg-white border border-indigo-100 rounded-lg text-slate-700">
                     <option value="">All Status</option>
@@ -118,7 +118,7 @@
                     <option value="join_date" {{ request('sort') == 'join_date' ? 'selected' : '' }}>Date</option>
                     <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name</option>
                 </select>
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 rounded-lg shadow-sm transition">
+                <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg shadow-md transition">
                     Apply
                 </button>
             </form>
@@ -126,7 +126,7 @@
 
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-slate-50/80">
+                <thead class="bg-blue-50/80">
                     <tr>
                         <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Member</th>
                         <th class="px-6 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Contact</th>
@@ -137,25 +137,25 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($members as $member)
-                    <tr class="hover:bg-gradient-to-r hover:from-indigo-50/30 hover:to-purple-50/30 transition">
+                    <tr class="hover:bg-blue-100/80 transition">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 @if(!empty($member->profile_photo))
                                     <img src="{{ asset('storage/' . $member->profile_photo) }}" alt="Profile Photo" class="w-9 h-9 rounded-lg object-cover border border-gray-300 shadow-lg">
                                 @else
-                                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-semibold shadow-lg shadow-indigo-500/20">
+                                    <div class="w-9 h-9 rounded-lg bg-blue-200 flex items-center justify-center text-blue-900 text-xs font-bold shadow-md">
                                         {{ strtoupper(substr($member->first_name, 0, 1)) }}{{ strtoupper(substr($member->last_name, 0, 1)) }}
                                     </div>
                                 @endif
                                 <div>
-                                    <p class="text-sm font-medium text-slate-900">{{ $member->first_name }} {{ $member->last_name }}</p>
-                                    <p class="text-xs text-slate-500">{{ $member->member_id }}</p>
+                                    <p class="text-sm font-semibold text-blue-900">{{ $member->first_name }} {{ $member->last_name }}</p>
+                                    <p class="text-xs text-blue-500">{{ $member->member_id }}</p>
                                 </div>
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="text-sm text-slate-900">{{ $member->email }}</p>
-                            <p class="text-xs text-slate-500">{{ $member->phone }}</p>
+                            <p class="text-sm text-blue-900">{{ $member->email }}</p>
+                            <p class="text-xs text-blue-500">{{ $member->phone }}</p>
                         </td>
                         <td class="px-6 py-4">
                             @php
@@ -166,25 +166,31 @@
                                     default => 'from-slate-500 to-slate-500'
                                 };
                             @endphp
-                            <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium text-white rounded-full bg-gradient-to-r {{ $statusStyles }} shadow-sm">
+                            <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full shadow-sm
+                                {{
+                                    $member->status === 'active' ? 'bg-green-100 text-green-800 border border-green-300' :
+                                    ($member->status === 'pending' ? 'bg-yellow-100 text-yellow-800 border border-yellow-300' :
+                                    ($member->status === 'inactive' ? 'bg-red-100 text-red-800 border border-red-300' :
+                                    'bg-slate-100 text-slate-800 border border-slate-300'))
+                                }}">
                                 {{ ucfirst($member->status) }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-sm text-slate-500">
+                        <td class="px-6 py-4 text-sm text-blue-700">
                             {{ $member->join_date ? $member->join_date->format('M d, Y') : 'N/A' }}
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-1">
-                                <a href="{{ route('admin.members.show', $member) }}" class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View">
+                                <a href="{{ route('admin.members.show', $member) }}" class="p-2 text-blue-700 hover:text-white hover:bg-blue-500 rounded-lg transition shadow-sm" title="View">
                                     <i class="fas fa-eye text-sm"></i>
                                 </a>
-                                <a href="{{ route('admin.members.edit', $member) }}" class="p-2 text-slate-500 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition" title="Edit">
+                                <a href="{{ route('admin.members.edit', $member) }}" class="p-2 text-amber-600 hover:text-white hover:bg-amber-400 rounded-lg transition shadow-sm" title="Edit">
                                     <i class="fas fa-edit text-sm"></i>
                                 </a>
                                 <form action="{{ route('admin.members.destroy', $member) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition js-confirm-delete" data-confirm-message="Delete this member?" title="Delete">
+                                    <button type="button" class="p-2 text-red-600 hover:text-white hover:bg-red-500 rounded-lg transition shadow-sm js-confirm-delete" data-confirm-message="Delete this member?" title="Delete">
                                         <i class="fas fa-trash text-sm"></i>
                                     </button>
                                 </form>
@@ -194,10 +200,10 @@
                     @empty
                     <tr>
                         <td colspan="5" class="px-6 py-12 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-users text-2xl text-indigo-400"></i>
+                            <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-users text-2xl text-blue-400"></i>
                             </div>
-                            <h3 class="text-sm font-medium text-slate-900 mb-1">No members found</h3>
+                            <h3 class="text-sm font-semibold text-blue-900 mb-1">No members found</h3>
                             <p class="text-sm text-slate-500 mb-4">Get started by adding a new member</p>
                             <a href="{{ route('admin.member-registration.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg shadow-lg shadow-indigo-500/25 transition">
                                 <i class="fas fa-plus"></i>Add Member

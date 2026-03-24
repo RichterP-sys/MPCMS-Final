@@ -3,15 +3,15 @@
 @section('title', 'Member Password')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-8">
     <!-- Header -->
-    <div class="relative overflow-hidden rounded-2xl p-6 lg:p-8" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
+    <div class="relative overflow-hidden rounded-2xl shadow-lg p-8 mb-2" style="background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #2563eb 100%);">
         <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-                <h1 class="text-2xl lg:text-3xl font-bold text-white">Member Password</h1>
-                <p class="text-indigo-200 mt-1">Generate a new password for a member by email or username</p>
+                <h1 class="text-3xl font-bold text-white drop-shadow">Member Password</h1>
+                <p class="text-white/90 mt-1 font-medium">Generate a new password for a member by email or username</p>
             </div>
-            <a href="{{ route('admin.member-registration.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-xl backdrop-blur border border-white/20 transition">
+            <a href="{{ route('admin.member-registration.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 hover:bg-white/30 text-white text-sm font-semibold rounded-xl backdrop-blur border border-white/30 shadow transition">
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Registration</span>
             </a>
@@ -19,10 +19,10 @@
     </div>
 
     <div class="max-w-2xl">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-200/60 bg-slate-50/50">
-                <h3 class="font-semibold text-slate-900">Set Member Password</h3>
-                <p class="text-sm text-slate-500">Enter member's email or username, then generate or enter a custom password</p>
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-indigo-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-indigo-100 bg-indigo-50/60">
+                <h3 class="font-semibold text-indigo-900">Set Member Password</h3>
+                <p class="text-sm text-indigo-700">Enter member's email or username, then generate or enter a custom password</p>
             </div>
 
             <div class="p-6">

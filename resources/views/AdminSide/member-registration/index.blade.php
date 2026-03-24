@@ -3,59 +3,53 @@
 @section('title', 'Member Registration')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-8">
     <!-- Header -->
-    <div class="text-center">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-50 mb-4">
-            <i class="fas fa-user-plus text-blue-600 text-xl"></i>
+    <div class="relative overflow-hidden rounded-2xl shadow-lg p-8 text-center mb-2" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #3b82f6 100%);">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 mb-4 shadow">
+            <i class="fas fa-user-plus text-white text-2xl"></i>
         </div>
-        <h2 class="text-2xl font-bold text-slate-900">Create Member Account</h2>
-        <p class="text-slate-500 mt-1">Set up login credentials for new members</p>
+        <h2 class="text-3xl font-bold text-white drop-shadow">Create Member Account</h2>
+        <p class="text-white/90 mt-2 font-medium">Set up login credentials for new members</p>
     </div>
 
     <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-blue-500 rounded-xl p-5 shadow-sm border border-slate-200/60">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
-                    <i class="fas fa-users text-blue-600"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Members</p>
-                    <p class="text-2xl font-bold text-blue-900">{{ $totalMembers }}</p>
-                </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-blue-100 p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center shadow text-lg">
+                <i class="fas fa-users text-white"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">Total Members</p>
+                <p class="text-2xl font-bold text-blue-900">{{ $totalMembers }}</p>
             </div>
         </div>
-        <div class="bg-green-500 rounded-xl p-5 shadow-sm border border-slate-200/60">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center">
-                    <i class="fas fa-check text-green-900"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Active Accounts</p>
-                    <p class="text-2xl font-bold text-green-900">{{ $registeredMembers->count() }}</p>
-                </div>
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-green-100 p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-green-600 flex items-center justify-center shadow text-lg">
+                <i class="fas fa-check text-white"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-green-700 uppercase tracking-wide">Active Accounts</p>
+                <p class="text-2xl font-bold text-green-900">{{ $registeredMembers->count() }}</p>
             </div>
         </div>
-        <div class="bg-yellow-500 rounded-xl p-5 shadow-sm border border-slate-200/60">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-yellow-50 flex items-center justify-center">
-                    <i class="fas fa-clock text-yellow-600"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Pending Review</p>
-                    <p class="text-2xl font-bold text-yellow-900">{{ $pendingRegistrations->count() }}</p>
-                </div>
+        <div class="rounded-2xl bg-white/80 backdrop-blur shadow-lg border border-yellow-100 p-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center shadow text-lg">
+                <i class="fas fa-clock text-white"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-yellow-700 uppercase tracking-wide">Pending Review</p>
+                <p class="text-2xl font-bold text-yellow-900">{{ $pendingRegistrations->count() }}</p>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Form -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-blue-200/60 overflow-hidden">
-            <div class="px-6 py-4 border-b border-blue-200/60 bg-blue-50/50">
+        <div class="lg:col-span-2 bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-blue-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-blue-100 bg-blue-50/60">
                 <h3 class="font-semibold text-blue-900">Create New Account</h3>
-                <p class="text-sm text-blue-500">Enter member details and set login credentials</p>
+                <p class="text-sm text-blue-700">Enter member details and set login credentials</p>
             </div>
 
             <div class="p-6">
@@ -123,9 +117,9 @@
         </div>
 
         <!-- Pending List -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
-            <div class="px-6 py-4 border-b border-red-200/60 bg-red-50">
-                <h3 class="font-semibold text-slate-900">Pending Confirmations</h3>
+        <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-red-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-red-100 bg-red-50/60">
+                <h3 class="font-semibold text-red-900">Pending Confirmations</h3>
                 <p class="text-sm text-red-700">{{ $pendingRegistrations->count() }} awaiting approval</p>
             </div>
 
@@ -133,24 +127,24 @@
                 @if($pendingRegistrations->count() > 0)
                     <div class="space-y-3">
                         @foreach($pendingRegistrations as $user)
-                            <div class="p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition">
+                            <div class="p-4 bg-white/90 hover:bg-blue-50 rounded-xl shadow transition">
                                 <div class="flex items-start justify-between gap-3">
                                     <div class="flex items-start gap-3">
-                                        <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700 font-semibold text-sm">
+                                        <div class="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center text-yellow-700 font-semibold text-sm">
                                             {{ $user->member ? substr($user->member->first_name, 0, 1) : '?' }}
                                         </div>
                                         <div class="min-w-0">
-                                            <p class="text-sm font-medium text-slate-900 truncate">
+                                            <p class="text-sm font-medium text-blue-900 truncate">
                                                 @if($user->member)
                                                     {{ $user->member->first_name }} {{ $user->member->last_name }}
                                                 @else
                                                     <span class="text-red-500">No record</span>
                                                 @endif
                                             </p>
-                                            <p class="text-xs text-slate-500 truncate">{{ $user->email }}</p>
+                                            <p class="text-xs text-blue-700 truncate">{{ $user->email }}</p>
                                         </div>
                                     </div>
-                                    <button class="px-3 py-1.5 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition review-btn" data-user='@json($user)'>
+                                    <button class="px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow transition review-btn" data-user='@json($user)'>
                                         Review
                                     </button>
                                 </div>
@@ -159,11 +153,11 @@
                     </div>
                 @else
                     <div class="text-center py-10">
-                        <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-inbox text-slate-400"></i>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-inbox text-blue-300"></i>
                         </div>
-                        <p class="text-sm font-medium text-slate-600">No pending confirmations</p>
-                        <p class="text-xs text-slate-500 mt-1">All registrations confirmed</p>
+                        <p class="text-sm font-medium text-blue-900">No pending confirmations</p>
+                        <p class="text-xs text-blue-700 mt-1">All registrations confirmed</p>
                     </div>
                 @endif
             </div>
@@ -171,42 +165,42 @@
     </div>
 
     <!-- Workflow Info -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-blue-100">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
                     <i class="fas fa-list-ol text-blue-600"></i>
                 </div>
-                <h4 class="font-semibold text-slate-900">Registration Workflow</h4>
+                <h4 class="font-semibold text-blue-900">Registration Workflow</h4>
             </div>
             <ol class="space-y-3 text-sm">
                 <li class="flex items-start gap-3">
                     <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
-                    <span class="text-slate-600">Admin creates login credentials</span>
+                    <span class="text-blue-700">Admin creates login credentials</span>
                 </li>
                 <li class="flex items-start gap-3">
                     <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
-                    <span class="text-slate-600">Member receives login details</span>
+                    <span class="text-blue-700">Member receives login details</span>
                 </li>
                 <li class="flex items-start gap-3">
                     <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
-                    <span class="text-slate-600">Member completes profile on first login</span>
+                    <span class="text-blue-700">Member completes profile on first login</span>
                 </li>
                 <li class="flex items-start gap-3">
                     <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
-                    <span class="text-slate-600">Admin reviews and confirms registration</span>
+                    <span class="text-blue-700">Admin reviews and confirms registration</span>
                 </li>
             </ol>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60">
+        <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg border border-purple-100">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center">
                     <i class="fas fa-user-check text-purple-600"></i>
                 </div>
-                <h4 class="font-semibold text-slate-900">Profile Completion</h4>
+                <h4 class="font-semibold text-purple-900">Profile Completion</h4>
             </div>
-            <p class="text-sm text-slate-600 mb-3">Members fill in during first login:</p>
-            <ul class="space-y-2 text-sm text-slate-600">
+            <p class="text-sm text-purple-700 mb-3">Members fill in during first login:</p>
+            <ul class="space-y-2 text-sm text-purple-700">
                 <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500 text-xs"></i> Personal Information</li>
                 <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500 text-xs"></i> Contact Information</li>
                 <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500 text-xs"></i> Identity Documents</li>

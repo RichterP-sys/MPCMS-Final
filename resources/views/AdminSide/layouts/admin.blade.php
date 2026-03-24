@@ -282,8 +282,14 @@
              x-transition:leave-end="opacity-0"></div>
         
         <!-- Sidebar -->
-        <aside class="admin-sidebar fixed lg:static inset-y-0 left-0 z-50 flex flex-col overflow-hidden transition-all duration-300"
-               :class="[sidebarOpen ? 'w-72' : 'w-20', mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0']">
+         <aside class="admin-sidebar fixed lg:static inset-y-0 left-0 z-50 flex flex-col overflow-hidden"
+             x-transition:enter="transition transform ease-out duration-300"
+             x-transition:enter-start="-translate-x-full opacity-0"
+             x-transition:enter-end="translate-x-0 opacity-100"
+             x-transition:leave="transition transform ease-in duration-200"
+             x-transition:leave-start="translate-x-0 opacity-100"
+             x-transition:leave-end="-translate-x-full opacity-0"
+             :class="[sidebarOpen ? 'w-72' : 'w-20', mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0']">
             
             <!-- Logo -->
             <div class="relative z-10 flex items-center h-16 px-6 border-b border-gray-700">
@@ -292,7 +298,7 @@
                         <i class="fas fa-building-columns text-white"></i>
                     </div>
                     <div x-show="sidebarOpen" x-transition.opacity.duration.200ms>
-                        <h1 class="text-lg font-bold text-white tracking-tight">{{ config('app.name', 'MPCMS') }}</h1>
+                        <h1 class="text-lg font-bold text-white tracking-tight">MPCMS</h1>
                         <p class="text-xs text-gray-400 -mt-0.5">{{ config('cooperative.subtitle', 'Davao del Sur State College') }}</p>
                     </div>
                 </div>
@@ -433,48 +439,48 @@
                             </button>
                             
                             <div x-show="open" @click.away="open = false" x-transition:enter="dropdown-enter"
-                                 class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg ring-1 ring-gray-200 overflow-hidden z-50">
-                                <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
-                                    <h3 class="text-sm font-semibold text-gray-900">Notifications</h3>
-                                    <p class="text-xs text-gray-500">You have 3 unread messages</p>
+                                 class="absolute right-0 mt-2 w-80 bg-blue-900 rounded-lg shadow-lg ring-1 ring-blue-700 overflow-hidden z-50">
+                                <div class="px-4 py-3 bg-blue-900 border-b border-blue-700">
+                                    <h3 class="text-sm font-semibold text-white">Notifications</h3>
+                                    <p class="text-xs text-blue-100">You have 3 unread messages</p>
                                 </div>
                                 <div class="max-h-72 overflow-y-auto">
                                     <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
-                                        <div class="flex gap-3">
-                                            <div class="icon-circle icon-circle-blue w-9 h-9 flex-shrink-0">
-                                                <i class="fas fa-user-plus text-sm"></i>
+                                        <div class="flex gap-3 bg-blue-100 rounded-lg p-2">
+                                            <div class="icon-circle icon-circle-blue w-9 h-9 flex-shrink-0 bg-blue-200">
+                                                <i class="fas fa-user-plus text-sm text-blue-800"></i>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-gray-900">New member registration</p>
-                                                <p class="text-xs text-gray-500 mt-0.5">2 minutes ago</p>
+                                                <p class="text-sm text-black">New member registration</p>
+                                                <p class="text-xs text-blue-900 mt-0.5">2 minutes ago</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
-                                        <div class="flex gap-3">
-                                            <div class="icon-circle icon-circle-amber w-9 h-9 flex-shrink-0">
-                                                <i class="fas fa-file-invoice-dollar text-sm"></i>
+                                        <div class="flex gap-3 bg-blue-100 rounded-lg p-2">
+                                            <div class="icon-circle icon-circle-amber w-9 h-9 flex-shrink-0 bg-blue-200">
+                                                <i class="fas fa-file-invoice-dollar text-sm text-blue-800"></i>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-gray-900">Loan application pending</p>
-                                                <p class="text-xs text-gray-500 mt-0.5">1 hour ago</p>
+                                                <p class="text-sm text-black">Loan application pending</p>
+                                                <p class="text-xs text-blue-900 mt-0.5">1 hour ago</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="p-4 hover:bg-gray-50 cursor-pointer transition">
-                                        <div class="flex gap-3">
-                                            <div class="icon-circle icon-circle-green w-9 h-9 flex-shrink-0">
-                                                <i class="fas fa-check-circle text-sm"></i>
+                                        <div class="flex gap-3 bg-blue-100 rounded-lg p-2">
+                                            <div class="icon-circle icon-circle-green w-9 h-9 flex-shrink-0 bg-blue-200">
+                                                <i class="fas fa-check-circle text-sm text-blue-800"></i>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-gray-900">Payment received</p>
-                                                <p class="text-xs text-gray-500 mt-0.5">3 hours ago</p>
+                                                <p class="text-sm text-black">Payment received</p>
+                                                <p class="text-xs text-blue-900 mt-0.5">3 hours ago</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="p-3 bg-gray-50 border-t border-gray-100">
-                                    <a href="#" class="block text-center text-sm font-medium text-blue-600 hover:text-blue-700">View all notifications</a>
+                                    <a href="#" class="block text-center text-sm font-medium text-white bg-blue-800 rounded-lg py-2 hover:bg-blue-700 transition">View all notifications</a>
                                 </div>
                             </div>
                         </div>
@@ -482,35 +488,44 @@
                         <!-- Profile -->
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" 
-                                    class="flex items-center gap-3 p-1.5 pr-3 rounded-lg hover:bg-gray-100 transition">
-                                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                                    class="flex items-center gap-3 p-1.5 pr-3 rounded-lg hover:bg-blue-900/20 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-lg shadow-lg border-2 border-white/30">
                                     {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                                 </div>
                                 <div class="hidden sm:block text-left">
-                                    <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                    <p class="text-xs text-gray-500">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                    <p class="text-base font-semibold text-white drop-shadow">{{ auth()->user()->name ?? 'Admin' }}</p>
+                                    <p class="text-xs text-blue-200/90">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
                                 </div>
-                                <i class="fas fa-chevron-down text-xs text-gray-600 hidden sm:block transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                <i class="fas fa-chevron-right text-xs text-blue-200 hidden sm:block transition-transform duration-300" :class="{ 'rotate-90': open }"></i>
                             </button>
-                            
-                            <div x-show="open" @click.away="open = false" x-transition:enter="dropdown-enter"
-                                 class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg ring-1 ring-gray-200 overflow-hidden z-50">
-                                <div class="px-4 py-3 border-b border-gray-200 bg-gray-50">
-                                    <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                    <p class="text-xs text-gray-500">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                            <!-- Profile Slideout -->
+                            <div x-show="open" @click.away="open = false" x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100" x-transition:leave="transition transform ease-in duration-200" x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="translate-x-full opacity-0"
+                                 class="fixed top-0 right-0 h-full w-full max-w-xs bg-gradient-to-br from-blue-900/95 to-indigo-900/90 shadow-2xl ring-1 ring-blue-400/30 z-50 flex flex-col border-l border-blue-700/40 backdrop-blur-xl"
+                                 style="min-width: 320px;">
+                                <div class="flex items-center gap-4 px-6 py-8 border-b border-blue-700/40 bg-blue-900/80">
+                                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-2xl shadow-lg border-2 border-white/30">
+                                        {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
+                                    </div>
+                                    <div>
+                                        <p class="text-lg font-bold text-white drop-shadow">{{ auth()->user()->name ?? 'Admin' }}</p>
+                                        <p class="text-xs text-blue-200/90">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                    </div>
+                                    <button @click="open = false" class="ml-auto text-blue-200 hover:text-white transition text-xl focus:outline-none"><i class="fas fa-times"></i></button>
                                 </div>
-                                <div class="py-2">
-                                    <a href="{{ route('admin.account-settings.index') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition">
-                                        <i class="fas fa-user-cog w-4 text-blue-500"></i>Account Settings
-                                    </a>
-                                </div>
-                                <div class="py-2 border-t border-gray-200">
-                                    <form method="POST" action="{{ route('admin.logout') }}" class="inline">
-                                        @csrf
-                                        <button type="submit" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition text-left">
-                                            <i class="fas fa-sign-out-alt w-4"></i>Sign Out
-                                        </button>
-                                    </form>
+                                <div class="flex-1 flex flex-col justify-between">
+                                    <div class="py-6 px-6 space-y-2">
+                                        <a href="{{ route('admin.account-settings.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-blue-100 bg-blue-700 hover:bg-blue-800/80 transition">
+                                            <i class="fas fa-user-cog w-5 text-blue-300"></i>Account Settings
+                                        </a>
+                                    </div>
+                                    <div class="py-6 px-6 border-t border-blue-700/40">
+                                        <form method="POST" action="{{ route('admin.logout') }}" class="inline">
+                                            @csrf
+                                            <button type="submit" class="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-base font-medium text-white bg-red-600 hover:bg-red-700 transition text-left">
+                                                <i class="fas fa-sign-out-alt w-5"></i>Sign Out
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

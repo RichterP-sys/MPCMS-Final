@@ -246,7 +246,7 @@
                             <span id="emailValidation" class="text-red-500 text-sm hidden">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </span>
-                            <span id="emailSuccess" class="text-green-500 text-sm hidden">
+                            <span id="emailSuccess" class="text-blue-500 text-sm hidden">
                                 <i class="fas fa-check"></i>
                             </span>
                         </div>
