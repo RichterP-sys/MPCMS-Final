@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="w-full space-y-6 rounded-2xl bg-white shadow-2xl p-6 sm:p-8 lg:p-10 fade-in-up">
+        <div class="w-full rounded-2xl bg-white shadow-2xl p-6 sm:p-8 lg:p-10 fade-in-up flex flex-col max-h-[85vh]">
             @if (session('warning'))
             <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg">
                 <div class="flex">
@@ -64,7 +64,7 @@
             </div>
             @endif
             
-            <div class="text-center lg:text-left">
+            <div class="text-center lg:text-left mb-4">
                 <h2 class="text-3xl font-extrabold text-gray-900">
                     Complete your profile
                 </h2>
@@ -73,180 +73,177 @@
                 </p>
             </div>
 
-        <form class="mt-6 space-y-6" action="{{ route('user.profile.store') }}" method="POST">
+            <div class="overflow-y-auto flex-1 pr-2">
+                <form class="space-y-5" action="{{ route('user.profile.store') }}" method="POST" enctype="multipart/form-data">
 
             @csrf
-            <div class="flex flex-col items-center mb-4">
-                <label for="profile_photo" class="block text-xs font-semibold text-gray-600 mb-2">Profile Photo</label>
+            
+                <!-- Profile Photo -->
+                <div>
+                    <label for="profile_photo" class="block text-xs font-semibold text-gray-600 mb-2">Profile Photo</label>
+                    <input
+                        id="profile_photo"
+                        name="profile_photo"
+                        type="file"
+                        accept="image/*"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                    >
+                    @error('profile_photo')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                    @if(!empty($user->profile_photo))
+                        <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Profile Photo" class="mt-2 w-20 h-20 rounded-full object-cover border border-gray-300">
+                    @endif
+                </div>
+
+            <!-- First Name -->
+            <div>
+                <label for="first_name" class="block text-xs font-semibold text-gray-600 mb-2">First Name</label>
                 <input
-                    id="profile_photo"
-                    name="profile_photo"
-                    type="file"
-                    accept="image/*"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                    id="first_name"
+                    name="first_name"
+                    type="text"
+                    autocomplete="given-name"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="First Name"
+                    value="{{ old('first_name', $user->first_name ?? '') }}"
                 >
-                @error('profile_photo')
+                @error('first_name')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
-                @if(!empty($user->profile_photo))
-                    <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Profile Photo" class="mt-2 w-20 h-20 rounded-full object-cover border border-gray-300">
-                @endif
-            </div
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- First Name -->
-                <div>
-                    <label for="first_name" class="block text-xs font-semibold text-gray-600">First Name</label>
-                    <input
-                        id="first_name"
-                        name="first_name"
-                        type="text"
-                        autocomplete="given-name"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="First Name"
-                        value="{{ old('first_name', $user->first_name ?? '') }}"
-                    >
-                    @error('first_name')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!-- Last Name -->
-                <div>
-                    <label for="last_name" class="block text-xs font-semibold text-gray-600">Last Name</label>
-                    <input
-                        id="last_name"
-                        name="last_name"
-                        type="text"
-                        autocomplete="family-name"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="Last Name"
-                        value="{{ old('last_name', $user->last_name ?? '') }}"
-                    >
-                    @error('last_name')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!-- Phone -->
-                <div>
-                    <label for="phone_number" class="block text-xs font-semibold text-gray-600">Phone</label>
-                    <input
-                        id="phone_number"
-                        name="phone_number"
-                        type="tel"
-                        autocomplete="tel"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="Phone Number"
-                        value="{{ old('phone_number', $user->phone ?? '') }}"
-                    >
-                    @error('phone_number')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!-- Address -->
-                <div>
-                    <label for="address" class="block text-xs font-semibold text-gray-600">Address</label>
-                    <input
-                        id="address"
-                        name="address"
-                        type="text"
-                        autocomplete="street-address"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="Address"
-                        value="{{ old('address', $user->address ?? '') }}"
-                    >
-                    @error('address')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Nature of Work -->
-                <div>
-                    <label for="nature_of_work" class="block text-xs font-semibold text-gray-600">Nature of Work</label>
-                    <input
-                        id="nature_of_work"
-                        name="nature_of_work"
-                        type="text"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="Self-employed, Farmer, etc."
-                        value="{{ old('nature_of_work', $user->nature_of_work ?? '') }}"
-                    >
-                    @error('nature_of_work')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!-- Employer/Business Name -->
-                <div>
-                    <label for="employer_business_name" class="block text-xs font-semibold text-gray-600">Employer or Business</label>
-                    <input
-                        id="employer_business_name"
-                        name="employer_business_name"
-                        type="text"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="Employer or Business Name"
-                        value="{{ old('employer_business_name', $user->employer_business_name ?? '') }}"
-                    >
-                    @error('employer_business_name')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Date of Employment -->
-                <div>
-                    <label for="date_of_employment" class="block text-xs font-semibold text-gray-600">Date of Employment</label>
-                    <input
-                        id="date_of_employment"
-                        name="date_of_employment"
-                        type="date"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        value="{{ old('date_of_employment', optional($user->date_of_employment)->format('Y-m-d') ?? '') }}"
-                    >
-                    @error('date_of_employment')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!-- TIN Number -->
-                <div>
-                    <label for="tin_number" class="block text-xs font-semibold text-gray-600">TIN Number</label>
-                    <input
-                        id="tin_number"
-                        name="tin_number"
-                        type="text"
-                        required
-                        class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
-                        placeholder="123-456-789-000"
-                        value="{{ old('tin_number', $user->tin_number ?? '') }}"
-                    >
-                    @error('tin_number')
-                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
+            <!-- Last Name -->
             <div>
-                <!-- SSS/GSIS Number -->
-                <label for="sss_gsis_no" class="block text-xs font-semibold text-gray-600">SSS/GSIS Number</label>
+                <label for="last_name" class="block text-xs font-semibold text-gray-600 mb-2">Last Name</label>
+                <input
+                    id="last_name"
+                    name="last_name"
+                    type="text"
+                    autocomplete="family-name"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="Last Name"
+                    value="{{ old('last_name', $user->last_name ?? '') }}"
+                >
+                @error('last_name')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Phone -->
+            <div>
+                <label for="phone_number" class="block text-xs font-semibold text-gray-600 mb-2">Phone</label>
+                <input
+                    id="phone_number"
+                    name="phone_number"
+                    type="tel"
+                    autocomplete="tel"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="Phone Number"
+                    value="{{ old('phone_number', $user->phone ?? '') }}"
+                >
+                @error('phone_number')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Address -->
+            <div>
+                <label for="address" class="block text-xs font-semibold text-gray-600 mb-2">Address</label>
+                <input
+                    id="address"
+                    name="address"
+                    type="text"
+                    autocomplete="street-address"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="Address"
+                    value="{{ old('address', $user->address ?? '') }}"
+                >
+                @error('address')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Nature of Work -->
+            <div>
+                <label for="nature_of_work" class="block text-xs font-semibold text-gray-600 mb-2">Nature of Work</label>
+                <input
+                    id="nature_of_work"
+                    name="nature_of_work"
+                    type="text"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="Self-employed, Farmer, etc."
+                    value="{{ old('nature_of_work', $user->nature_of_work ?? '') }}"
+                >
+                @error('nature_of_work')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Employer/Business Name -->
+            <div>
+                <label for="employer_business_name" class="block text-xs font-semibold text-gray-600 mb-2">Employer or Business</label>
+                <input
+                    id="employer_business_name"
+                    name="employer_business_name"
+                    type="text"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="Employer or Business Name"
+                    value="{{ old('employer_business_name', $user->employer_business_name ?? '') }}"
+                >
+                @error('employer_business_name')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Date of Employment -->
+            <div>
+                <label for="date_of_employment" class="block text-xs font-semibold text-gray-600 mb-2">Date of Employment</label>
+                <input
+                    id="date_of_employment"
+                    name="date_of_employment"
+                    type="date"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    value="{{ old('date_of_employment', optional($user->date_of_employment)->format('Y-m-d') ?? '') }}"
+                >
+                @error('date_of_employment')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- TIN Number -->
+            <div>
+                <label for="tin_number" class="block text-xs font-semibold text-gray-600 mb-2">TIN Number</label>
+                <input
+                    id="tin_number"
+                    name="tin_number"
+                    type="text"
+                    required
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    placeholder="123-456-789-000"
+                    value="{{ old('tin_number', $user->tin_number ?? '') }}"
+                >
+                @error('tin_number')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- SSS/GSIS Number -->
+            <div>
+                <label for="sss_gsis_no" class="block text-xs font-semibold text-gray-600 mb-2">SSS/GSIS Number</label>
                 <input
                     id="sss_gsis_no"
                     name="sss_gsis_no"
                     type="text"
                     required
-                    class="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
+                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 shadow-sm transition focus:outline-none {{ $themeConfig['ring'] }} {{ $themeConfig['border'] }}"
                     placeholder="01-2345678-9"
                     value="{{ old('sss_gsis_no', $user->sss_gsis_no ?? '') }}"
                 >
@@ -255,18 +252,20 @@
                 @enderror
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-                <p class="text-xs text-gray-500">
+            <!-- Submit Button -->
+            <div class="pt-4">
+                <p class="text-xs text-gray-500 mb-3">
                     By continuing, you agree to keep your information accurate.
                 </p>
                 <button
                     type="submit"
-                    class="group relative inline-flex items-center justify-center rounded-lg px-6 py-2 text-sm font-semibold text-white shadow-lg transition-transform duration-200 {{ $themeConfig['button'] }} hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 {{ $themeConfig['ring'] }}"
+                    class="w-full group relative inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform duration-200 {{ $themeConfig['button'] }} hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 {{ $themeConfig['ring'] }}"
                 >
                     Complete Profile
                 </button>
             </div>
         </form>
+            </div>
     </div>
 </div>
 @endsection
