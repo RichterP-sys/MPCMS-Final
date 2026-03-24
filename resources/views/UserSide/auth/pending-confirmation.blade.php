@@ -2,57 +2,113 @@
 
 @section('content')
 @include('UserSide.partials.theme-config')
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8 glass-panel rounded-2xl shadow-2xl p-8 text-center fade-in-up">
-        @if (session('success'))
-        <div>
-            <div class="mx-auto h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <svg class="h-10 w-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
+<div class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Left Panel - Welcome Card -->
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl p-8 text-white flex flex-col justify-between">
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">LARAVEL ACCOUNT</p>
+                    <h1 class="text-4xl font-bold mb-4">Welcome back, there</h1>
+                    <p class="text-white/80 text-lg">
+                        Complete your profile to unlock personalized features and faster approvals.
+                    </p>
+                </div>
+                
+                <div class="mt-auto pt-8">
+                    <div class="space-y-2">
+                        <p class="text-sm">
+                            <span class="font-semibold">Profile status:</span> 
+                            <span class="text-yellow-300">Pending completion</span>
+                        </p>
+                        <p class="text-sm">
+                            <span class="font-semibold">Email:</span> 
+                            <span>{{ auth('member')->user()?->email ?? 'justine@gmail.com' }}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Profile Completed!
-            </h2>
-            <p class="mt-2 text-sm text-gray-600">
-                {{ session('success') }}
-            </p>
-        </div>
-        @else
-        <div>
-            <svg class="mx-auto h-12 w-12 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Account Pending Confirmation
-            </h2>
-            <p class="mt-2 text-sm text-gray-600">
-                Hi {{ auth('member')->user()?->first_name ?? 'there' }}, thanks for signing up with {{ config('app.name', 'MPCMS') }}.
-            </p>
-        </div>
-        @endif
 
-        <div class="mt-8 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg text-left">
-            <p class="text-sm text-amber-700">
-                <span class="font-semibold">Your account is pending admin confirmation.</span> Please wait for approval from the administrator. You will be notified once your account has been activated.
-            </p>
+            <!-- Right Panel - Profile Form -->
+            <div class="bg-white rounded-3xl shadow-2xl p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Complete your profile</h2>
+                <p class="text-gray-600 mb-8">Hi there, confirm your details to finish setup.</p>
+
+                <form method="POST" action="#" enctype="multipart/form-data" class="space-y-6">
+                    @csrf
+
+                    <!-- Profile Photo -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Profile Photo</label>
+                        <input type="file" name="profile_photo" accept="image/*" 
+                               class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    </div>
+
+                    <!-- First Name -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
+                        <input type="text" name="first_name" placeholder="First Name" 
+                               value="{{ auth('member')->user()?->first_name ?? '' }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+
+                    <!-- Last Name -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
+                        <input type="text" name="last_name" placeholder="Last Name" 
+                               value="{{ auth('member')->user()?->last_name ?? '' }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+                        <input type="tel" name="phone" placeholder="Phone Number" 
+                               value="{{ auth('member')->user()?->phone ?? '' }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+
+                    <!-- Address -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Address</label>
+                        <input type="text" name="address" placeholder="Address" 
+                               value="{{ auth('member')->user()?->address ?? '' }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <form method="POST" action="{{ route('user.logout') }}">
-                @csrf
-                <button type="submit" class="inline-flex items-center justify-center px-5 py-2.5 border border-gray-300 text-sm font-semibold rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-transform duration-200 hover:-translate-y-0.5">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                    </svg>
-                    Logout
-                </button>
-            </form>
-        </div>
+        <!-- Bottom Row - Additional Fields -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <!-- Nature of Work -->
+            <div>
+                <label class="block text-sm font-semibold text-white mb-2">Nature of Work</label>
+                <input type="text" placeholder="Self-employed, Farmer, etc." 
+                       class="w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-white">
+            </div>
 
-        <p class="mt-6 text-xs text-gray-500">
-            You can close this page and come back later. Your account status will be updated automatically once approved.
-        </p>
+            <!-- Employer or Business -->
+            <div>
+                <label class="block text-sm font-semibold text-white mb-2">Employer or Business</label>
+                <input type="text" placeholder="Employer or Business Name" 
+                       class="w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-white">
+            </div>
+
+            <!-- Date of Employment -->
+            <div>
+                <label class="block text-sm font-semibold text-white mb-2">Date of Employment</label>
+                <input type="date" placeholder="mm/dd/yyyy" 
+                       class="w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-white">
+            </div>
+
+            <!-- TIN Number -->
+            <div>
+                <label class="block text-sm font-semibold text-white mb-2">TIN Number</label>
+                <input type="text" placeholder="123-456-789-000" 
+                       class="w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-white">
+            </div>
+        </div>
     </div>
 </div>
 @endsection
