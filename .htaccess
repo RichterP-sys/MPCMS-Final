@@ -1,5 +1,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    
+    # Force HTTPS in production
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
