@@ -88,14 +88,12 @@ class UserDashboardController extends Controller
             ->take(5)
             ->get();
 
-        // Get loans with upcoming due dates (within next 7 days)
+        // Get loans with outstanding balance (for payment reminders)
         $loansDueSoon = Loan::where('member_id', $member->id)
             ->where('status', 'approved')
             ->where('remaining_balance', '>', 0)
-            ->whereNotNull('due_date')
-            ->where('due_date', '>=', Carbon::now())
-            ->where('due_date', '<=', Carbon::now()->addDays(7))
-            ->orderBy('due_date', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
             ->get();
 
         return view('UserSide.dashboard.index', [

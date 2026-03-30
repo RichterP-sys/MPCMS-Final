@@ -423,20 +423,19 @@
             <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-orange-200 rounded-2xl p-6 shadow-lg">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="h-10 w-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #f97316, #ea580c);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-orange-900">Loan Payment Reminders</h3>
-                        <p class="text-sm text-orange-700">Upcoming due dates (next 7 days)</p>
+                        <h3 class="text-lg font-bold text-orange-900">Outstanding Loans</h3>
+                        <p class="text-sm text-orange-700">Loans requiring payment</p>
                     </div>
                 </div>
                 <div class="space-y-3">
                     @foreach($loansDueSoon as $loan)
                         @php
-                            $daysUntilDue = Carbon::parse($loan->due_date)->diffInDays(Carbon::now(), false);
-                            $isOverdue = $daysUntilDue < 0;
-                            $urgencyClass = $isOverdue ? 'bg-red-100 border-red-200' : ($daysUntilDue <= 2 ? 'bg-orange-100 border-orange-200' : 'bg-yellow-100 border-yellow-200');
-                            $urgencyText = $isOverdue ? 'text-red-700' : ($daysUntilDue <= 2 ? 'text-orange-700' : 'text-yellow-700');
+                            $balancePercentage = $loan->amount > 0 ? ($loan->remaining_balance / $loan->amount) * 100 : 0;
+                            $urgencyClass = $balancePercentage > 75 ? 'bg-red-100 border-red-200' : ($balancePercentage > 50 ? 'bg-orange-100 border-orange-200' : 'bg-yellow-100 border-yellow-200');
+                            $urgencyText = $balancePercentage > 75 ? 'text-red-700' : ($balancePercentage > 50 ? 'text-orange-700' : 'text-yellow-700');
                         @endphp
                         <div class="bg-white rounded-xl p-4 border border-orange-100 hover:shadow-md transition">
                             <div class="flex items-start justify-between gap-3 mb-2">
@@ -450,26 +449,21 @@
                                     </div>
                                 </div>
                                 <span class="text-xs font-bold px-2.5 py-1 rounded-full {{ $urgencyClass }} {{ $urgencyText }}">
-                                    @if($isOverdue)
-                                        Overdue
-                                    @elseif($daysUntilDue == 0)
-                                        Due Today
-                                    @elseif($daysUntilDue == 1)
-                                        Due Tomorrow
-                                    @else
-                                        {{ abs($daysUntilDue) }} days
-                                    @endif
+                                    {{ number_format($balancePercentage, 0) }}% Due
                                 </span>
                             </div>
                             <div class="grid grid-cols-2 gap-3 text-xs mb-3">
                                 <div>
-                                    <p class="text-slate-500">Due Date</p>
-                                    <p class="font-semibold text-slate-800">{{ Carbon::parse($loan->due_date)->format('M d, Y') }}</p>
+                                    <p class="text-slate-500">Loan Amount</p>
+                                    <p class="font-semibold text-slate-800">₱{{ number_format($loan->amount, 2) }}</p>
                                 </div>
                                 <div>
                                     <p class="text-slate-500">Remaining Balance</p>
                                     <p class="font-semibold text-slate-800">₱{{ number_format($loan->remaining_balance ?? $loan->amount, 2) }}</p>
                                 </div>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mb-3">
+                                <div class="h-2 rounded-full transition-all" style="width: {{ $balancePercentage }}%; background: linear-gradient(90deg, #f97316, #ea580c);"></div>
                             </div>
                             <a href="{{ route('user.loans.show', $loan->id) }}" class="inline-flex items-center gap-1 text-xs font-semibold text-orange-600 hover:text-orange-700">
                                 View Loan Details
