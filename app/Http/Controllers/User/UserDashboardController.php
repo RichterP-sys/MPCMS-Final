@@ -9,8 +9,10 @@ use App\Models\Contribution;
 use App\Models\Loan;
 use App\Models\LoanRepayment;
 use App\Models\ActivityLog;
+use App\Models\CooperativeAnnouncement;
 use App\Services\ActivityLogService;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UserDashboardController extends Controller
 {
@@ -78,6 +80,24 @@ class UserDashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Get upcoming meetings, elections, and events
+        $upcomingEvents = CooperativeAnnouncement::active()
+            ->upcoming()
+            ->orderBy('scheduled_date', 'asc')
+            ->orderBy('scheduled_time', 'asc')
+            ->take(5)
+            ->get();
+
+        // Get loans with upcoming due dates (within next 7 days)
+        $loansDueSoon = Loan::where('member_id', $member->id)
+            ->where('status', 'approved')
+            ->where('remaining_balance', '>', 0)
+            ->whereNotNull('due_date')
+            ->where('due_date', '>=', Carbon::now())
+            ->where('due_date', '<=', Carbon::now()->addDays(7))
+            ->orderBy('due_date', 'asc')
+            ->get();
+
         return view('UserSide.dashboard.index', [
             'member' => $member,
             'recentContributions' => $recentContributions,
@@ -87,6 +107,8 @@ class UserDashboardController extends Controller
             'netBalance' => $netBalance,
             'totalOutstandingLoans' => $totalOutstandingLoans,
             'recentRepayments' => $recentRepayments,
+            'upcomingEvents' => $upcomingEvents,
+            'loansDueSoon' => $loansDueSoon,
         ]);
     }
 }
