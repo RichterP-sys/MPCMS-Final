@@ -405,15 +405,22 @@
             outline: none;
         }
         
-        /* Force navigation menu background to be visible */
-        [x-data*="navOpen"] > div[style*="position: fixed"] {
-            background: #1e293b !important;
-            background-color: #1e293b !important;
-            opacity: 1 !important;
+        /* Navigation slideout menu styles */
+        .nav-slideout-menu {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
         }
         
-        [x-data*="navOpen"] a span,
-        [x-data*="navOpen"] a i {
+        .nav-menu-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-menu-link:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(99, 102, 241, 0.3) 100%) !important;
+            transform: translateX(4px);
+        }
+        
+        .nav-menu-link span,
+        .nav-menu-link i {
             color: white !important;
         }
     </style>
@@ -445,6 +452,133 @@
                             </button>
                             
                             <!-- Navigation Slideout -->
+                            <div x-show="navOpen" 
+                                 x-cloak
+                                 @click.away="navOpen = false" 
+                                 x-transition:enter="transition transform ease-out duration-300" 
+                                 x-transition:enter-start="-translate-x-full opacity-0" 
+                                 x-transition:enter-end="translate-x-0 opacity-100" 
+                                 x-transition:leave="transition transform ease-in duration-200" 
+                                 x-transition:leave-start="translate-x-0 opacity-100" 
+                                 x-transition:leave-end="-translate-x-full opacity-0"
+                                 class="nav-slideout-menu"
+                                 style="position: fixed; top: 0; left: 0; height: 100vh; width: 320px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
+                                
+                                <!-- Header -->
+                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <div class="logo-icon" style="width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i class="fas fa-building-columns" style="font-size: 1.5rem; color: white !important;"></i>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <p style="font-size: 1.125rem; font-weight: 700; color: white !important; margin: 0;">MPCMS</p>
+                                        <p style="font-size: 0.75rem; color: #94a3b8 !important; margin: 0;">Navigation Menu</p>
+                                    </div>
+                                    <button @click="navOpen = false" style="color: #94a3b8; background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">
+                                        <i class="fas fa-times" style="color: #94a3b8 !important;"></i>
+                                    </button>
+                                </div>
+                                
+                                <!-- Navigation Links -->
+                                <div style="flex: 1; overflow-y: auto; padding: 1rem;">
+                                    <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                                        <a href="{{ route('admin.dashboard') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.dashboard') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-th-large" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Dashboard</span>
+                                        </a>
+                                        
+                                        <div style="padding: 1rem 1rem 0.5rem;">
+                                            <p style="color: #94a3b8 !important; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">MANAGEMENT</p>
+                                        </div>
+                                        
+                                        <a href="{{ route('admin.members.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.members.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-users" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Members</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.member-registration.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.member-registration.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-user-plus" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Registration</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.member-password.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.member-password.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-key" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Password</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.member-sessions.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.member-sessions.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-user-clock" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Sessions</span>
+                                        </a>
+                                        
+                                        <div style="padding: 1rem 1rem 0.5rem;">
+                                            <p style="color: #94a3b8 !important; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">FINANCE</p>
+                                        </div>
+                                        
+                                        <a href="{{ route('admin.finance.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-wallet" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Finance</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.finance.repayment-confirmation') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-receipt" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Repayment</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.amount-held.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.amount-held.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-piggy-bank" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Savings</span>
+                                        </a>
+                                        
+                                        <div style="padding: 1rem 1rem 0.5rem;">
+                                            <p style="color: #94a3b8 !important; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">ANALYTICS</p>
+                                        </div>
+                                        
+                                        <a href="{{ route('admin.reports.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-chart-line" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Reports</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.reports.activity-logs') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.reports.activity-logs') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-history" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Activity Logs</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.notifications.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.notifications.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-bell" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Notifications</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.messages.index') }}" 
+                                           class="nav-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white !important; text-decoration: none; background: {{ request()->routeIs('admin.messages.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-envelope" style="width: 1.25rem; text-align: center; color: white !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Messages</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                             <div x-show="navOpen" @click.away="navOpen = false" 
                                  x-transition:enter="transition transform ease-out duration-300" 
                                  x-transition:enter-start="-translate-x-full opacity-0" 
@@ -452,10 +586,10 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="-translate-x-full opacity-0"
-                                 style="position: fixed !important; top: 0 !important; left: 0 !important; height: 100% !important; width: 320px !important; max-width: 90vw !important; background: #1e293b !important; background-color: #1e293b !important; box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important; z-index: 9999 !important; display: flex !important; flex-direction: column !important;">
+                                 style="position: fixed !important; top: 0 !important; left: 0 !important; height: 100% !important; width: 320px !important; max-width: 90vw !important; background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important; z-index: 9999 !important; display: flex !important; flex-direction: column !important;">
                                 
                                 <!-- Header -->
-                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+                                <div style="display: flex !important; align-items: center !important; gap: 1rem !important; padding: 1.5rem !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;">
                                     <div class="logo-icon" style="width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);">
                                         <i class="fas fa-building-columns" style="font-size: 1.5rem; color: white;"></i>
                                     </div>
@@ -469,7 +603,7 @@
                                 </div>
                                 
                                 <!-- Navigation Links -->
-                                <div style="flex: 1 !important; overflow-y: auto !important; padding: 1rem !important; background: #1e293b !important;">
+                                <div style="flex: 1 !important; overflow-y: auto !important; padding: 1rem !important; background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;">
                                     <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                                         <a href="{{ route('admin.dashboard') }}" 
                                            style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.dashboard') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
@@ -784,48 +918,6 @@
             });
         });
     })();
-    
-    // Force navigation menu text to be visible
-    document.addEventListener('DOMContentLoaded', function() {
-        // Wait for Alpine.js to initialize
-        setTimeout(function() {
-            // Force navigation menu background
-            const navMenu = document.querySelector('[x-data*="navOpen"] > div[style*="position: fixed"]');
-            if (navMenu) {
-                navMenu.style.setProperty('background', '#1e293b', 'important');
-                navMenu.style.setProperty('background-color', '#1e293b', 'important');
-                navMenu.style.setProperty('opacity', '1', 'important');
-                navMenu.style.setProperty('visibility', 'visible', 'important');
-            }
-            
-            // Force all navigation links to be visible
-            const navLinks = document.querySelectorAll('[x-data*="navOpen"] a[href]');
-            navLinks.forEach(link => {
-                const span = link.querySelector('span');
-                if (span) {
-                    span.style.setProperty('color', 'white', 'important');
-                    span.style.setProperty('display', 'inline', 'important');
-                    span.style.setProperty('visibility', 'visible', 'important');
-                    span.style.setProperty('opacity', '1', 'important');
-                }
-                const icon = link.querySelector('i');
-                if (icon) {
-                    icon.style.setProperty('color', 'white', 'important');
-                    icon.style.setProperty('display', 'inline', 'important');
-                    icon.style.setProperty('visibility', 'visible', 'important');
-                    icon.style.setProperty('opacity', '1', 'important');
-                }
-            });
-            
-            // Force section headers to be visible
-            const sectionHeaders = document.querySelectorAll('[x-data*="navOpen"] p[style*="text-transform: uppercase"]');
-            sectionHeaders.forEach(header => {
-                header.style.setProperty('color', '#94a3b8', 'important');
-                header.style.setProperty('visibility', 'visible', 'important');
-                header.style.setProperty('opacity', '1', 'important');
-            });
-        }, 100);
-    });
     </script>
 
     @yield('scripts')
