@@ -80,6 +80,47 @@
             font-size: 1.1rem;
         }
         
+        /* Navigation menu specific styles - for slideout menu */
+        .nav-item-menu {
+            position: relative;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #ffffff !important;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-item-menu:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(99, 102, 241, 0.3) 100%);
+            color: #ffffff !important;
+            transform: translateX(4px);
+        }
+        
+        .nav-item-menu.active-menu {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        }
+        
+        .nav-item-menu i {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+        }
+        
+        .nav-item-menu span {
+            color: #ffffff !important;
+        }
+        
+        /* Section header for menu */
+        .section-header-menu {
+            color: #94a3b8 !important;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 16px 16px 8px;
+        }
+        
         /* Enhanced Navbar */
         .admin-navbar {
             background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
@@ -399,19 +440,19 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="-translate-x-full opacity-0"
-                                 class="dropdown-menu-enhanced fixed top-0 left-0 h-full w-full max-w-xs shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
+                                 class="fixed top-0 left-0 h-full w-full max-w-xs bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
                                  style="min-width: 320px;">
                                 
                                 <!-- Header -->
-                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10">
+                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10 bg-slate-900/50">
                                     <div class="logo-icon w-14 h-14 rounded-xl flex items-center justify-center text-white shadow-lg">
                                         <i class="fas fa-building-columns text-2xl"></i>
                                     </div>
                                     <div class="flex-1">
                                         <p class="text-lg font-bold text-white drop-shadow-sm">MPCMS</p>
-                                        <p class="text-xs text-white/70">Navigation Menu</p>
+                                        <p class="text-xs text-slate-300">Navigation Menu</p>
                                     </div>
-                                    <button @click="navOpen = false" class="text-white/60 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg">
+                                    <button @click="navOpen = false" class="text-slate-400 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
@@ -420,85 +461,85 @@
                                 <div class="flex-1 overflow-y-auto py-4 px-4">
                                     <div class="space-y-1">
                                         <a href="{{ route('admin.dashboard') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.dashboard') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-th-large w-5 text-center"></i>
                                             <span>Dashboard</span>
                                         </a>
                                         
                                         <div class="pt-3 pb-2">
-                                            <p class="section-header">Management</p>
+                                            <p class="section-header-menu">Management</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.members.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.members.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.members.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-users w-5 text-center"></i>
                                             <span>Members</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-registration.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.member-registration.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.member-registration.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-user-plus w-5 text-center"></i>
                                             <span>Registration</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-password.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.member-password.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.member-password.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-key w-5 text-center"></i>
                                             <span>Password</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-sessions.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.member-sessions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.member-sessions.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-user-clock w-5 text-center"></i>
                                             <span>Sessions</span>
                                         </a>
                                         
                                         <div class="pt-3 pb-2">
-                                            <p class="section-header">Finance</p>
+                                            <p class="section-header-menu">Finance</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.finance.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-wallet w-5 text-center"></i>
                                             <span>Finance</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.finance.repayment-confirmation') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-receipt w-5 text-center"></i>
                                             <span>Repayment</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.amount-held.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.amount-held.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.amount-held.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-piggy-bank w-5 text-center"></i>
                                             <span>Savings</span>
                                         </a>
                                         
                                         <div class="pt-3 pb-2">
-                                            <p class="section-header">Analytics</p>
+                                            <p class="section-header-menu">Analytics</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.reports.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-chart-line w-5 text-center"></i>
                                             <span>Reports</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.reports.activity-logs') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.reports.activity-logs') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.reports.activity-logs') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-history w-5 text-center"></i>
                                             <span>Activity Logs</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.notifications.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.notifications.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.notifications.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-bell w-5 text-center"></i>
                                             <span>Notifications</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.messages.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
+                                           class="nav-item-menu {{ request()->routeIs('admin.messages.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
                                             <i class="fas fa-envelope w-5 text-center"></i>
                                             <span>Messages</span>
                                         </a>
@@ -599,17 +640,17 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="translate-x-full opacity-0"
-                                 class="dropdown-menu-enhanced fixed top-0 right-0 h-full w-full max-w-xs shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
+                                 class="fixed top-0 right-0 h-full w-full max-w-xs bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
                                  style="min-width: 320px;">
-                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10">
+                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10 bg-slate-900/50">
                                     <div class="profile-avatar w-16 h-16 rounded-xl flex items-center justify-center text-white font-bold text-2xl">
                                         {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <p class="text-lg font-bold text-white drop-shadow-sm truncate">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                        <p class="text-xs text-white/70 truncate">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                        <p class="text-xs text-slate-300 truncate">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
                                     </div>
-                                    <button @click="open = false" class="text-white/60 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg flex-shrink-0">
+                                    <button @click="open = false" class="text-slate-400 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg flex-shrink-0">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
