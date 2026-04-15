@@ -832,7 +832,7 @@
                                  style="position: fixed; top: 0; right: 0; height: 100vh; width: 360px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: -10px 0 50px rgba(0,0,0,0.3); z-index: 9999; display: flex; flex-direction: column;">
                                 
                                 <!-- Decorative Header Background -->
-                                <div style="position: relative; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); padding: 2rem 1.5rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <div style="position: relative; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); padding: 2rem 1.5rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
                                     <!-- Close Button -->
                                     <button @click="open = false" style="position: absolute; top: 1rem; right: 1rem; color: white; background: rgba(255,255,255,0.1); border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; backdrop-filter: blur(10px);" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
                                         <i class="fas fa-times" style="color: white !important;"></i>
@@ -851,8 +851,8 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Menu Content -->
-                                <div style="flex: 1; overflow-y: auto; padding: 1.5rem;">
+                                <!-- Menu Content - Scrollable -->
+                                <div style="flex: 1; overflow-y: auto; padding: 1.5rem; min-height: 0;">
                                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                                         <!-- Section Label -->
                                         <div style="padding: 0 0.5rem 0.5rem;">
@@ -900,8 +900,8 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Footer with Sign Out -->
-                                <div style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.1);">
+                                <!-- Footer with Sign Out - Fixed at Bottom -->
+                                <div style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); flex-shrink: 0;">
                                     <form method="POST" action="{{ route('admin.logout') }}" style="width: 100%;">
                                         @csrf
                                         <button type="submit" 
