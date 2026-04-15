@@ -440,108 +440,107 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="-translate-x-full opacity-0"
-                                 class="fixed top-0 left-0 h-full w-full max-w-xs bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
-                                 style="min-width: 320px;">
+                                 style="position: fixed; top: 0; left: 0; height: 100%; width: 320px; max-width: 90vw; background: #1e293b; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
                                 
                                 <!-- Header -->
-                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10 bg-slate-900/50">
-                                    <div class="logo-icon w-14 h-14 rounded-xl flex items-center justify-center text-white shadow-lg">
-                                        <i class="fas fa-building-columns text-2xl"></i>
+                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+                                    <div class="logo-icon" style="width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);">
+                                        <i class="fas fa-building-columns" style="font-size: 1.5rem; color: white;"></i>
                                     </div>
-                                    <div class="flex-1">
-                                        <p class="text-lg font-bold text-white drop-shadow-sm">MPCMS</p>
-                                        <p class="text-xs text-slate-300">Navigation Menu</p>
+                                    <div style="flex: 1;">
+                                        <p style="font-size: 1.125rem; font-weight: 700; color: white; margin: 0;">MPCMS</p>
+                                        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Navigation Menu</p>
                                     </div>
-                                    <button @click="navOpen = false" class="text-slate-400 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg">
-                                        <i class="fas fa-times"></i>
+                                    <button @click="navOpen = false" style="color: #94a3b8; background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem;">
+                                        <i class="fas fa-times" style="color: #94a3b8;"></i>
                                     </button>
                                 </div>
                                 
                                 <!-- Navigation Links -->
-                                <div class="flex-1 overflow-y-auto py-4 px-4">
-                                    <div class="space-y-1">
+                                <div style="flex: 1; overflow-y: auto; padding: 1rem;">
+                                    <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                                         <a href="{{ route('admin.dashboard') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.dashboard') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-th-large w-5 text-center"></i>
-                                            <span>Dashboard</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.dashboard') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-th-large" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Dashboard</span>
                                         </a>
                                         
-                                        <div class="pt-3 pb-2">
-                                            <p class="section-header-menu">Management</p>
+                                        <div style="padding: 1rem 1rem 0.5rem;">
+                                            <p style="color: #94a3b8; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">MANAGEMENT</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.members.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.members.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-users w-5 text-center"></i>
-                                            <span>Members</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.members.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-users" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Members</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-registration.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.member-registration.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-user-plus w-5 text-center"></i>
-                                            <span>Registration</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.member-registration.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-user-plus" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Registration</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-password.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.member-password.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-key w-5 text-center"></i>
-                                            <span>Password</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.member-password.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-key" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Password</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-sessions.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.member-sessions.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-user-clock w-5 text-center"></i>
-                                            <span>Sessions</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.member-sessions.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-user-clock" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Sessions</span>
                                         </a>
                                         
-                                        <div class="pt-3 pb-2">
-                                            <p class="section-header-menu">Finance</p>
+                                        <div style="padding: 1rem 1rem 0.5rem;">
+                                            <p style="color: #94a3b8; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">FINANCE</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.finance.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-wallet w-5 text-center"></i>
-                                            <span>Finance</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-wallet" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Finance</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.finance.repayment-confirmation') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-receipt w-5 text-center"></i>
-                                            <span>Repayment</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-receipt" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Repayment</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.amount-held.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.amount-held.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-piggy-bank w-5 text-center"></i>
-                                            <span>Savings</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.amount-held.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-piggy-bank" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Savings</span>
                                         </a>
                                         
-                                        <div class="pt-3 pb-2">
-                                            <p class="section-header-menu">Analytics</p>
+                                        <div style="padding: 1rem 1rem 0.5rem;">
+                                            <p style="color: #94a3b8; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">ANALYTICS</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.reports.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-chart-line w-5 text-center"></i>
-                                            <span>Reports</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-chart-line" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Reports</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.reports.activity-logs') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.reports.activity-logs') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-history w-5 text-center"></i>
-                                            <span>Activity Logs</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.reports.activity-logs') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-history" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Activity Logs</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.notifications.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.notifications.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-bell w-5 text-center"></i>
-                                            <span>Notifications</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.notifications.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-bell" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Notifications</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.messages.index') }}" 
-                                           class="nav-item-menu {{ request()->routeIs('admin.messages.*') ? 'active-menu' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl text-white">
-                                            <i class="fas fa-envelope w-5 text-center"></i>
-                                            <span>Messages</span>
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.messages.*') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
+                                            <i class="fas fa-envelope" style="width: 1.25rem; text-align: center; color: white; font-size: 1.1rem;"></i>
+                                            <span style="color: white;">Messages</span>
                                         </a>
                                     </div>
                                 </div>
@@ -640,33 +639,32 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="translate-x-full opacity-0"
-                                 class="fixed top-0 right-0 h-full w-full max-w-xs bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
-                                 style="min-width: 320px;">
-                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10 bg-slate-900/50">
-                                    <div class="profile-avatar w-16 h-16 rounded-xl flex items-center justify-center text-white font-bold text-2xl">
+                                 style="position: fixed; top: 0; right: 0; height: 100%; width: 320px; max-width: 90vw; background: #1e293b; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
+                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+                                    <div class="profile-avatar" style="width: 4rem; height: 4rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.5rem;">
                                         {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-lg font-bold text-white drop-shadow-sm truncate">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                        <p class="text-xs text-slate-300 truncate">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <p style="font-size: 1.125rem; font-weight: 700; color: white; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ auth()->user()->name ?? 'Admin' }}</p>
+                                        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
                                     </div>
-                                    <button @click="open = false" class="text-slate-400 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg flex-shrink-0">
-                                        <i class="fas fa-times"></i>
+                                    <button @click="open = false" style="color: #94a3b8; background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem; flex-shrink: 0;">
+                                        <i class="fas fa-times" style="color: #94a3b8;"></i>
                                     </button>
                                 </div>
-                                <div class="flex-1 flex flex-col justify-between">
-                                    <div class="py-6 px-6 space-y-2">
-                                        <a href="{{ route('admin.account-settings.index') }}" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-semibold text-white bg-white/10 hover:bg-white/20 transition">
-                                            <i class="fas fa-user-cog w-5 text-blue-300"></i>
-                                            <span>Account Settings</span>
+                                <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                        <a href="{{ route('admin.account-settings.index') }}" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: white; text-decoration: none; background: rgba(255,255,255,0.1); transition: all 0.3s;">
+                                            <i class="fas fa-user-cog" style="width: 1.25rem; color: #60a5fa;"></i>
+                                            <span style="color: white;">Account Settings</span>
                                         </a>
                                     </div>
-                                    <div class="py-6 px-6 border-t border-white/10">
-                                        <form method="POST" action="{{ route('admin.logout') }}" class="inline w-full">
+                                    <div style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                        <form method="POST" action="{{ route('admin.logout') }}" style="width: 100%;">
                                             @csrf
-                                            <button type="submit" class="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-base font-semibold text-white bg-red-600 hover:bg-red-700 transition shadow-lg hover:shadow-xl">
-                                                <i class="fas fa-sign-out-alt w-5"></i>
-                                                <span>Sign Out</span>
+                                            <button type="submit" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: white; background: #dc2626; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); transition: all 0.3s;">
+                                                <i class="fas fa-sign-out-alt" style="width: 1.25rem; color: white;"></i>
+                                                <span style="color: white;">Sign Out</span>
                                             </button>
                                         </form>
                                     </div>
