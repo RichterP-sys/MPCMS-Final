@@ -14,259 +14,355 @@
     <style>
         [x-cloak] { display: none !important; }
         
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f3f4f6; }
-        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+        /* Custom scrollbar - Modern and sleek */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%); 
+            border-radius: 4px; 
+            border: 2px solid #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #64748b 0%, #475569 100%); }
         
-        /* Dark Professional Theme */
+        /* Professional Color Palette */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-blue-dark: #1e40af;
+            --primary-blue-light: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --success-green: #10b981;
+            --warning-amber: #f59e0b;
+            --danger-red: #ef4444;
+            --neutral-50: #f8fafc;
+            --neutral-100: #f1f5f9;
+            --neutral-200: #e2e8f0;
+            --neutral-300: #cbd5e1;
+            --neutral-700: #334155;
+            --neutral-800: #1e293b;
+            --neutral-900: #0f172a;
+        }
+        
+        /* Base styles */
         body {
-            background-color: #f9fafb;
-            color: #1f2937;
-        }
-
-        .admin-sidebar {
-            background-color: #1f2937;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
-            border-right: 1px solid #374151;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--neutral-900);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
-        /* Nav item styles - Simple and Professional */
+        /* Navigation item styles */
         .nav-item {
             position: relative;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            color: #d1d5db;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #e2e8f0;
+            font-weight: 500;
         }
         
         .nav-item:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: #f3f4f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
+            color: #ffffff;
+            transform: translateX(4px);
         }
         
         .nav-item.active {
-            background-color: #374151;
-            color: #fff;
-            border-left: 3px solid #3b82f6;
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
         
         .nav-item.active i {
-            color: #60a5fa;
+            color: #ffffff;
         }
         
         .nav-item i {
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
         
-        /* Navbar */
+        /* Enhanced Navbar */
         .admin-navbar {
-            background: linear-gradient(90deg, #312e81 0%, #6366f1 100%);
-            border-bottom: 1px solid #4338ca;
-            box-shadow: 0 2px 8px 0 rgba(99, 102, 241, 0.07);
-        }
-        .admin-navbar .text-gray-900,
-        .admin-navbar .text-gray-700 {
-            color: #fff !important;
-        }
-        .admin-navbar .text-gray-500 {
-            color: #c7d2fe !important;
-        }
-        .admin-navbar .text-indigo-600 {
-            color: #a5b4fc !important;
-        }
-        .admin-navbar .hover\:bg-gray-100:hover {
-            background-color: rgba(255,255,255,0.08) !important;
-        }
-        .admin-navbar .rounded-lg {
-            border-radius: 10px !important;
-        }
-        .admin-navbar .fa-bell,
-        .admin-navbar .fa-chevron-down {
-            color: #c7d2fe !important;
-        }
-        .admin-navbar .fa-bell {
-            transition: color 0.2s;
-        }
-        .admin-navbar .fa-bell:hover {
-            color: #fff !important;
-        }
-        .admin-navbar .bg-gradient-to-br {
-            background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%) !important;
-        }
-        .admin-navbar .bg-white {
-            background: rgba(255,255,255,0.10) !important;
-        }
-        .admin-navbar .border-gray-200 {
-            border-color: #6366f1 !important;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
         }
         
-        /* Main content area */
+        /* Main content area with subtle pattern */
         .main-bg {
-            background-color: #f9fafb;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
         }
         
-        /* Card styles - Clean and Simple */
+        .main-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Enhanced Card styles */
         .card-gradient {
-            background-color: #fff;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                0 10px 40px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .card-gradient:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-color: #d1d5db;
+            transform: translateY(-4px);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.08),
+                0 20px 60px rgba(0, 0, 0, 0.06);
+            border-color: rgba(59, 130, 246, 0.3);
         }
         
-        /* Hover lift effect */
-        .hover-lift {
-            transition: all 0.2s ease;
+        .card-gradient:hover::before {
+            opacity: 1;
         }
         
-        .hover-lift:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Section headers */
+        /* Section headers - More visible */
         .section-header {
-            color: #9ca3af;
-            font-size: 12px;
+            color: #64748b;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 12px 16px 8px;
+            letter-spacing: 0.1em;
+            padding: 16px 16px 8px;
         }
         
-        /* Status badges */
+        /* Enhanced Status badges */
         .badge-success {
-            background-color: #ecfdf5;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
             color: #065f46;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
         }
         
         .badge-warning {
-            background-color: #fef3c7;
-            color: #654321;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
         }
         
         .badge-danger {
-            background-color: #fee2e2;
-            color: #7f1d1d;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
         }
         
         .badge-info {
-            background-color: #dbeafe;
-            color: #084594;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
         }
         
-        /* Icon background circles */
+        /* Enhanced Icon circles */
         .icon-circle {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            width: 48px;
+            height: 48px;
+            transition: all 0.3s ease;
         }
         
         .icon-circle-blue {
-            background-color: #dbeafe;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
             color: #1e40af;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
         
         .icon-circle-green {
-            background-color: #dcfce7;
-            color: #166534;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
         
         .icon-circle-purple {
-            background-color: #e9d5ff;
-            color: #581c87;
+            background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+            color: #6b21a8;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
         }
         
         .icon-circle-amber {
-            background-color: #fed7aa;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             color: #92400e;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
         }
         
-        /* Alert styles */
+        .icon-circle-red {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+        
+        /* Enhanced Alert styles */
         .alert-success {
-            background-color: #ecfdf5;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
             border: 1px solid #a7f3d0;
             color: #065f46;
+            border-radius: 12px;
+            font-weight: 500;
         }
         
         .alert-error {
-            background-color: #fee2e2;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
             border: 1px solid #fecaca;
-            color: #7f1d1d;
+            color: #991b1b;
+            border-radius: 12px;
+            font-weight: 500;
         }
         
-        /* Sidebar logo */
-        .sidebar-logo {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border-radius: 8px;
+        /* Logo button enhancement */
+        .logo-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .logo-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Profile button enhancement */
+        .profile-avatar {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Notification badge pulse */
+        .pulse-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Dropdown menu enhancement */
+        .dropdown-menu-enhanced {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        /* Button enhancements */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
         
-        <!-- Animated background like member portal -->
-        <div class="admin-animated-bg">
-            <div class="admin-bg-circle admin-bg-circle-1"></div>
-            <div class="admin-bg-circle admin-bg-circle-2"></div>
-            <div class="admin-bg-circle admin-bg-circle-3"></div>
-            <div class="admin-bg-plus-pattern"></div>
-        </div>
-        <style>
-        .admin-animated-bg {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
         }
-        .admin-bg-circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.18;
-            animation: adminCircleFloat 24s ease-in-out infinite;
+        
+        /* Text visibility enhancements */
+        .text-primary {
+            color: var(--neutral-900) !important;
+            font-weight: 600;
         }
-        .admin-bg-circle-1 {
-            width: 600px; height: 600px;
-            background: radial-gradient(circle at 30% 30%, #818cf8 0%, #a5b4fc 100%);
-            top: -180px; left: -180px;
-            animation-delay: 0s;
+        
+        .text-secondary {
+            color: var(--neutral-700) !important;
         }
-        .admin-bg-circle-2 {
-            width: 420px; height: 420px;
-            background: radial-gradient(circle at 70% 70%, #f472b6 0%, #fcd34d 100%);
-            bottom: -120px; right: 10%;
-            animation-delay: 8s;
+        
+        .text-muted {
+            color: var(--neutral-600) !important;
         }
-        .admin-bg-circle-3 {
-            width: 320px; height: 320px;
-            background: radial-gradient(circle at 60% 40%, #6ee7b7 0%, #3b82f6 100%);
-            top: 40%; right: -100px;
-            animation-delay: 16s;
+        
+        /* Ensure all navbar text is visible */
+        .admin-navbar * {
+            color: #ffffff !important;
         }
-        @keyframes adminCircleFloat {
-            0%, 100% { transform: translateY(0) scale(1); }
-            25% { transform: translateY(-40px) scale(1.05); }
-            50% { transform: translateY(30px) scale(0.97); }
-            75% { transform: translateY(-20px) scale(1.03); }
+        
+        .admin-navbar .text-xs {
+            color: rgba(255, 255, 255, 0.8) !important;
         }
-        .admin-bg-plus-pattern {
-            position: absolute;
-            inset: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="18" width="4" height="40" rx="2" fill="%23e0e7ef" fill-opacity="0.18"/><rect y="18" width="40" height="4" rx="2" fill="%23e0e7ef" fill-opacity="0.18"/></svg>');
-            background-size: 40px 40px;
-            opacity: 0.18;
-            pointer-events: none;
+        
+        /* Table enhancements */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
         }
-        </style>
+        
+        table thead th {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--neutral-900);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 16px;
+        }
+        
+        table tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        table tbody tr:hover {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            transform: scale(1.01);
+        }
+        
+        /* Input field enhancements */
+        input, select, textarea {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: var(--neutral-900);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -284,15 +380,15 @@
                         <!-- Logo/Navigation Dropdown -->
                         <div class="relative" x-data="{ navOpen: false }">
                             <button @click="navOpen = !navOpen" 
-                                    class="flex items-center gap-3 p-1.5 pr-3 rounded-lg hover:bg-blue-900/20 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg border-2 border-white/30">
+                                    class="logo-button flex items-center gap-3 p-2 pr-4 rounded-xl hover:bg-white/10 transition focus:outline-none focus:ring-2 focus:ring-white/30">
+                                <div class="logo-icon w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-lg">
                                     <i class="fas fa-building-columns text-lg"></i>
                                 </div>
                                 <div class="hidden sm:block text-left">
-                                    <p class="text-base font-semibold text-white drop-shadow">MPCMS</p>
-                                    <p class="text-xs text-blue-200/90">{{ config('cooperative.subtitle', 'Davao del Sur State College') }}</p>
+                                    <p class="text-base font-bold text-white drop-shadow-sm tracking-tight">MPCMS</p>
+                                    <p class="text-xs text-white/80 -mt-0.5">{{ config('cooperative.subtitle', 'Davao del Sur State College') }}</p>
                                 </div>
-                                <i class="fas fa-chevron-right text-xs text-blue-200 hidden sm:block transition-transform duration-300" :class="{ 'rotate-90': navOpen }"></i>
+                                <i class="fas fa-chevron-down text-xs text-white/80 hidden sm:block transition-transform duration-300" :class="{ 'rotate-180': navOpen }"></i>
                             </button>
                             
                             <!-- Navigation Slideout -->
@@ -303,19 +399,19 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="-translate-x-full opacity-0"
-                                 class="fixed top-0 left-0 h-full w-full max-w-xs bg-gradient-to-br from-gray-900/95 to-gray-800/90 shadow-2xl ring-1 ring-gray-700/30 z-50 flex flex-col border-r border-gray-700/40 backdrop-blur-xl"
+                                 class="dropdown-menu-enhanced fixed top-0 left-0 h-full w-full max-w-xs shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
                                  style="min-width: 320px;">
                                 
                                 <!-- Header -->
-                                <div class="flex items-center gap-4 px-6 py-6 border-b border-gray-700/40 bg-gray-900/80">
-                                    <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg border-2 border-white/30">
-                                        <i class="fas fa-building-columns text-xl"></i>
+                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10">
+                                    <div class="logo-icon w-14 h-14 rounded-xl flex items-center justify-center text-white shadow-lg">
+                                        <i class="fas fa-building-columns text-2xl"></i>
                                     </div>
-                                    <div>
-                                        <p class="text-lg font-bold text-white drop-shadow">MPCMS</p>
-                                        <p class="text-xs text-gray-300">Navigation Menu</p>
+                                    <div class="flex-1">
+                                        <p class="text-lg font-bold text-white drop-shadow-sm">MPCMS</p>
+                                        <p class="text-xs text-white/70">Navigation Menu</p>
                                     </div>
-                                    <button @click="navOpen = false" class="ml-auto text-gray-400 hover:text-white transition text-xl focus:outline-none">
+                                    <button @click="navOpen = false" class="text-white/60 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
@@ -324,85 +420,85 @@
                                 <div class="flex-1 overflow-y-auto py-4 px-4">
                                     <div class="space-y-1">
                                         <a href="{{ route('admin.dashboard') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-th-large w-5 text-center"></i>
                                             <span>Dashboard</span>
                                         </a>
                                         
-                                        <div class="pt-4 pb-2">
+                                        <div class="pt-3 pb-2">
                                             <p class="section-header">Management</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.members.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.members.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.members.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-users w-5 text-center"></i>
                                             <span>Members</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-registration.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.member-registration.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.member-registration.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-user-plus w-5 text-center"></i>
                                             <span>Registration</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-password.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.member-password.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.member-password.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-key w-5 text-center"></i>
                                             <span>Password</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.member-sessions.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.member-sessions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.member-sessions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-user-clock w-5 text-center"></i>
                                             <span>Sessions</span>
                                         </a>
                                         
-                                        <div class="pt-4 pb-2">
+                                        <div class="pt-3 pb-2">
                                             <p class="section-header">Finance</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.finance.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-wallet w-5 text-center"></i>
                                             <span>Finance</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.finance.repayment-confirmation') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-receipt w-5 text-center"></i>
                                             <span>Repayment</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.amount-held.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.amount-held.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.amount-held.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-piggy-bank w-5 text-center"></i>
                                             <span>Savings</span>
                                         </a>
                                         
-                                        <div class="pt-4 pb-2">
+                                        <div class="pt-3 pb-2">
                                             <p class="section-header">Analytics</p>
                                         </div>
                                         
                                         <a href="{{ route('admin.reports.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-chart-line w-5 text-center"></i>
                                             <span>Reports</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.reports.activity-logs') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.reports.activity-logs') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.reports.activity-logs') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-history w-5 text-center"></i>
                                             <span>Activity Logs</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.notifications.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.notifications.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.notifications.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-bell w-5 text-center"></i>
                                             <span>Notifications</span>
                                         </a>
                                         
                                         <a href="{{ route('admin.messages.index') }}" 
-                                           class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                           class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl">
                                             <i class="fas fa-envelope w-5 text-center"></i>
                                             <span>Messages</span>
                                         </a>
@@ -411,64 +507,72 @@
                             </div>
                         </div>
                         
-                        <div>
-                            <h1 class="text-lg font-semibold text-white">@yield('title', 'Dashboard')</h1>
-                            <p class="text-xs text-blue-200/90 hidden sm:block">Cooperative Management System</p>
+                        <div class="border-l border-white/20 pl-4 ml-2 hidden md:block">
+                            <h1 class="text-lg font-bold text-white drop-shadow-sm">@yield('title', 'Dashboard')</h1>
+                            <p class="text-xs text-white/80 -mt-0.5">Cooperative Management System</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center gap-2 sm:gap-4">
+                    <div class="flex items-center gap-3">
                         <!-- Notifications -->
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" 
-                                    class="relative p-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                                    class="relative p-2.5 rounded-xl text-white hover:bg-white/10 transition focus:outline-none focus:ring-2 focus:ring-white/30">
                                 <i class="fas fa-bell text-lg"></i>
-                                <span class="absolute top-1.5 right-1.5 h-2.5 w-2.5 bg-red-500 rounded-full pulse-dot"></span>
+                                <span class="absolute top-2 right-2 h-2.5 w-2.5 bg-red-500 rounded-full pulse-dot border-2 border-white"></span>
                             </button>
                             
-                            <div x-show="open" @click.away="open = false" x-transition:enter="dropdown-enter"
-                                 class="absolute right-0 mt-2 w-80 bg-blue-900 rounded-lg shadow-lg ring-1 ring-blue-700 overflow-hidden z-50">
-                                <div class="px-4 py-3 bg-blue-900 border-b border-blue-700">
-                                    <h3 class="text-sm font-semibold text-white">Notifications</h3>
-                                    <p class="text-xs text-blue-100">You have 3 unread messages</p>
+                            <div x-show="open" @click.away="open = false" 
+                                 x-transition:enter="transition ease-out duration-200"
+                                 x-transition:enter-start="opacity-0 scale-95"
+                                 x-transition:enter-end="opacity-100 scale-100"
+                                 x-transition:leave="transition ease-in duration-150"
+                                 x-transition:leave-start="opacity-100 scale-100"
+                                 x-transition:leave-end="opacity-0 scale-95"
+                                 class="absolute right-0 mt-3 w-96 bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 overflow-hidden z-50">
+                                <div class="px-5 py-4 bg-gradient-to-r from-blue-600 to-purple-600 border-b border-white/10">
+                                    <h3 class="text-base font-bold text-white">Notifications</h3>
+                                    <p class="text-xs text-white/80 mt-0.5">You have 3 unread messages</p>
                                 </div>
-                                <div class="max-h-72 overflow-y-auto">
+                                <div class="max-h-96 overflow-y-auto">
                                     <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
-                                        <div class="flex gap-3 bg-blue-100 rounded-lg p-2">
-                                            <div class="icon-circle icon-circle-blue w-9 h-9 flex-shrink-0 bg-blue-200">
-                                                <i class="fas fa-user-plus text-sm text-blue-800"></i>
+                                        <div class="flex gap-3">
+                                            <div class="icon-circle icon-circle-blue flex-shrink-0">
+                                                <i class="fas fa-user-plus text-sm"></i>
                                             </div>
-                                            <div>
-                                                <p class="text-sm text-black">New member registration</p>
-                                                <p class="text-xs text-blue-900 mt-0.5">2 minutes ago</p>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-semibold text-gray-900">New member registration</p>
+                                                <p class="text-xs text-gray-500 mt-1">2 minutes ago</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
-                                        <div class="flex gap-3 bg-blue-100 rounded-lg p-2">
-                                            <div class="icon-circle icon-circle-amber w-9 h-9 flex-shrink-0 bg-blue-200">
-                                                <i class="fas fa-file-invoice-dollar text-sm text-blue-800"></i>
+                                        <div class="flex gap-3">
+                                            <div class="icon-circle icon-circle-amber flex-shrink-0">
+                                                <i class="fas fa-file-invoice-dollar text-sm"></i>
                                             </div>
-                                            <div>
-                                                <p class="text-sm text-black">Loan application pending</p>
-                                                <p class="text-xs text-blue-900 mt-0.5">1 hour ago</p>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-semibold text-gray-900">Loan application pending</p>
+                                                <p class="text-xs text-gray-500 mt-1">1 hour ago</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="p-4 hover:bg-gray-50 cursor-pointer transition">
-                                        <div class="flex gap-3 bg-blue-100 rounded-lg p-2">
-                                            <div class="icon-circle icon-circle-green w-9 h-9 flex-shrink-0 bg-blue-200">
-                                                <i class="fas fa-check-circle text-sm text-blue-800"></i>
+                                        <div class="flex gap-3">
+                                            <div class="icon-circle icon-circle-green flex-shrink-0">
+                                                <i class="fas fa-check-circle text-sm"></i>
                                             </div>
-                                            <div>
-                                                <p class="text-sm text-black">Payment received</p>
-                                                <p class="text-xs text-blue-900 mt-0.5">3 hours ago</p>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-semibold text-gray-900">Payment received</p>
+                                                <p class="text-xs text-gray-500 mt-1">3 hours ago</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="p-3 bg-gray-50 border-t border-gray-100">
-                                    <a href="#" class="block text-center text-sm font-medium text-white bg-blue-800 rounded-lg py-2 hover:bg-blue-700 transition">View all notifications</a>
+                                    <a href="{{ route('admin.notifications.index') }}" class="block text-center text-sm font-semibold text-blue-600 hover:text-blue-700 py-2 rounded-lg hover:bg-blue-50 transition">
+                                        View all notifications
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -476,41 +580,52 @@
                         <!-- Profile -->
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" 
-                                    class="flex items-center gap-3 p-1.5 pr-3 rounded-lg hover:bg-blue-900/20 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-lg shadow-lg border-2 border-white/30">
+                                    class="flex items-center gap-3 p-1.5 pr-3 rounded-xl hover:bg-white/10 transition focus:outline-none focus:ring-2 focus:ring-white/30">
+                                <div class="profile-avatar w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-base">
                                     {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                                 </div>
                                 <div class="hidden sm:block text-left">
-                                    <p class="text-base font-semibold text-white drop-shadow">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                    <p class="text-xs text-blue-200/90">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                    <p class="text-sm font-bold text-white drop-shadow-sm">{{ auth()->user()->name ?? 'Admin' }}</p>
+                                    <p class="text-xs text-white/80 -mt-0.5">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
                                 </div>
-                                <i class="fas fa-chevron-right text-xs text-blue-200 hidden sm:block transition-transform duration-300" :class="{ 'rotate-90': open }"></i>
+                                <i class="fas fa-chevron-down text-xs text-white/80 hidden sm:block transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                             </button>
+                            
                             <!-- Profile Slideout -->
-                            <div x-show="open" @click.away="open = false" x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100" x-transition:leave="transition transform ease-in duration-200" x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="translate-x-full opacity-0"
-                                 class="fixed top-0 right-0 h-full w-full max-w-xs bg-gradient-to-br from-blue-900/95 to-indigo-900/90 shadow-2xl ring-1 ring-blue-400/30 z-50 flex flex-col border-l border-blue-700/40 backdrop-blur-xl"
+                            <div x-show="open" @click.away="open = false" 
+                                 x-transition:enter="transition transform ease-out duration-300" 
+                                 x-transition:enter-start="translate-x-full opacity-0" 
+                                 x-transition:enter-end="translate-x-0 opacity-100" 
+                                 x-transition:leave="transition transform ease-in duration-200" 
+                                 x-transition:leave-start="translate-x-0 opacity-100" 
+                                 x-transition:leave-end="translate-x-full opacity-0"
+                                 class="dropdown-menu-enhanced fixed top-0 right-0 h-full w-full max-w-xs shadow-2xl ring-1 ring-white/10 z-50 flex flex-col backdrop-blur-xl"
                                  style="min-width: 320px;">
-                                <div class="flex items-center gap-4 px-6 py-8 border-b border-blue-700/40 bg-blue-900/80">
-                                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-2xl shadow-lg border-2 border-white/30">
+                                <div class="flex items-center gap-4 px-6 py-6 border-b border-white/10">
+                                    <div class="profile-avatar w-16 h-16 rounded-xl flex items-center justify-center text-white font-bold text-2xl">
                                         {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                                     </div>
-                                    <div>
-                                        <p class="text-lg font-bold text-white drop-shadow">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                        <p class="text-xs text-blue-200/90">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-lg font-bold text-white drop-shadow-sm truncate">{{ auth()->user()->name ?? 'Admin' }}</p>
+                                        <p class="text-xs text-white/70 truncate">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
                                     </div>
-                                    <button @click="open = false" class="ml-auto text-blue-200 hover:text-white transition text-xl focus:outline-none"><i class="fas fa-times"></i></button>
+                                    <button @click="open = false" class="text-white/60 hover:text-white transition text-xl focus:outline-none p-2 hover:bg-white/10 rounded-lg flex-shrink-0">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 </div>
                                 <div class="flex-1 flex flex-col justify-between">
                                     <div class="py-6 px-6 space-y-2">
-                                        <a href="{{ route('admin.account-settings.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-blue-100 bg-blue-700 hover:bg-blue-800/80 transition">
-                                            <i class="fas fa-user-cog w-5 text-blue-300"></i>Account Settings
+                                        <a href="{{ route('admin.account-settings.index') }}" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-semibold text-white bg-white/10 hover:bg-white/20 transition">
+                                            <i class="fas fa-user-cog w-5 text-blue-300"></i>
+                                            <span>Account Settings</span>
                                         </a>
                                     </div>
-                                    <div class="py-6 px-6 border-t border-blue-700/40">
-                                        <form method="POST" action="{{ route('admin.logout') }}" class="inline">
+                                    <div class="py-6 px-6 border-t border-white/10">
+                                        <form method="POST" action="{{ route('admin.logout') }}" class="inline w-full">
                                             @csrf
-                                            <button type="submit" class="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-base font-medium text-white bg-red-600 hover:bg-red-700 transition text-left">
-                                                <i class="fas fa-sign-out-alt w-5"></i>Sign Out
+                                            <button type="submit" class="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-base font-semibold text-white bg-red-600 hover:bg-red-700 transition shadow-lg hover:shadow-xl">
+                                                <i class="fas fa-sign-out-alt w-5"></i>
+                                                <span>Sign Out</span>
                                             </button>
                                         </form>
                                     </div>
