@@ -14,7 +14,7 @@ class UserAuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('UserSide.auth.login');
+        return view('auth.login');
     }
 
     public function login(Request $request)

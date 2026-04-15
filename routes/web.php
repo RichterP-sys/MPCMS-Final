@@ -28,6 +28,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Unified login route
+Route::get('/login', function () {
+    return redirect()->route('user.login');
+})->name('login');
+
 Route::post('contact', [App\Http\Controllers\ContactMessageController::class, 'store'])->name('contact.store');
 
 // User Authentication Routes
