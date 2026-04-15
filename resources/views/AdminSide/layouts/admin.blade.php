@@ -269,148 +269,10 @@
         </style>
     </style>
 </head>
-<body class="antialiased" x-data="{ sidebarOpen: false, mobileMenuOpen: false }">
+<body class="antialiased">
     <div class="flex h-screen overflow-hidden">
-        <!-- Mobile overlay -->
-        <div x-show="mobileMenuOpen" @click="mobileMenuOpen = false" 
-             class="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm lg:hidden"
-             x-transition:enter="transition-opacity ease-out duration-300"
-             x-transition:enter-start="opacity-0"
-             x-transition:enter-end="opacity-100"
-             x-transition:leave="transition-opacity ease-in duration-200"
-             x-transition:leave-start="opacity-100"
-             x-transition:leave-end="opacity-0"></div>
         
-        <!-- Sidebar -->
-         <aside class="admin-sidebar fixed lg:static inset-y-0 left-0 z-50 flex flex-col overflow-hidden"
-             x-transition:enter="transition transform ease-out duration-300"
-             x-transition:enter-start="-translate-x-full opacity-0"
-             x-transition:enter-end="translate-x-0 opacity-100"
-             x-transition:leave="transition transform ease-in duration-200"
-             x-transition:leave-start="translate-x-0 opacity-100"
-             x-transition:leave-end="-translate-x-full opacity-0"
-             :class="[sidebarOpen ? 'w-72' : 'w-20', mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0']">
-            
-            <!-- Logo -->
-            <div class="relative z-10 flex items-center h-16 px-6 border-b border-gray-700">
-                <div class="flex items-center gap-3" :class="{ 'justify-center w-full': !sidebarOpen }">
-                    <div class="sidebar-logo w-10 h-10">
-                        <i class="fas fa-building-columns text-white"></i>
-                    </div>
-                    <div x-show="sidebarOpen" x-transition.opacity.duration.200ms>
-                        <h1 class="text-lg font-bold text-white tracking-tight">MPCMS</h1>
-                        <p class="text-xs text-gray-400 -mt-0.5">{{ config('cooperative.subtitle', 'Davao del Sur State College') }}</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Navigation -->
-            <nav class="relative z-10 flex-1 overflow-y-auto py-6 px-4">
-                <div class="space-y-1.5">
-                    <a href="{{ route('admin.dashboard') }}" 
-                       class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-th-large w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Dashboard</span>
-                    </a>
-                    
-                    <div x-show="sidebarOpen" class="pt-4 pb-2">
-                        <p class="section-header">Management</p>
-                    </div>
-                    
-                    <a href="{{ route('admin.members.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.members.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-users w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Members</span>
-                    </a>
-                    
-                    <a href="{{ route('admin.member-registration.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.member-registration.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-user-plus w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Registration</span>
-                    </a>
-                    <a href="{{ route('admin.member-password.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.member-password.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-key w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Password</span>
-                    </a>
-                    <a href="{{ route('admin.member-sessions.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.member-sessions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-user-clock w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Sessions</span>
-                    </a>
-                    
-                    <div x-show="sidebarOpen" class="pt-4 pb-2">
-                        <p class="section-header">Finance</p>
-                    </div>
-                    
-                    <a href="{{ route('admin.finance.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-wallet w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Finance</span>
-                    </a>
-                    <a href="{{ route('admin.finance.repayment-confirmation') }}" 
-                       class="nav-item {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-receipt w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Repayment</span>
-                    </a>
-                    
-                    <a href="{{ route('admin.amount-held.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.amount-held.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-piggy-bank w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Savings</span>
-                    </a>
-                    
-                    <div x-show="sidebarOpen" class="pt-4 pb-2">
-                        <p class="section-header">Analytics</p>
-                    </div>
-                    
-                    <a href="{{ route('admin.reports.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-chart-line w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Reports</span>
-                    </a>
-                    
-                    <a href="{{ route('admin.reports.activity-logs') }}" 
-                       class="nav-item {{ request()->routeIs('admin.reports.activity-logs') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-history w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Activity Logs</span>
-                    </a>
-                    
-                    <a href="{{ route('admin.notifications.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.notifications.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-bell w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Notifications</span>
-                    </a>
-                    <a href="{{ route('admin.messages.index') }}" 
-                       class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold"
-                       :class="{ 'justify-center': !sidebarOpen }">
-                        <i class="fas fa-envelope w-5 text-center text-lg"></i>
-                        <span x-show="sidebarOpen">Messages</span>
-                    </a>
-                </div>
-            </nav>
-            
-            <!-- Sidebar Footer -->
-            <div class="relative z-10 p-4 border-t border-gray-700">
-                <button @click="sidebarOpen = !sidebarOpen" 
-                        class="hidden lg:flex items-center gap-3 w-full px-4 py-2.5 text-sm font-semibold text-gray-300 hover:text-white rounded-lg hover:bg-gray-700 transition-all"
-                        :class="{ 'justify-center': !sidebarOpen }">
-                    <i class="fas fa-chevron-left text-blue-400 transition-transform duration-300" :class="{ 'rotate-180': !sidebarOpen }"></i>
-                    <span x-show="sidebarOpen">Collapse</span>
-                </button>
-            </div>
-        </aside>
+        <!-- No Sidebar - Navigation moved to dropdown -->
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col min-h-0 overflow-hidden main-bg">
@@ -419,13 +281,139 @@
             <header class="admin-navbar sticky top-0 z-30">
                 <div class="flex items-center justify-between h-16 px-4 lg:px-8">
                     <div class="flex items-center gap-4">
-                        <button @click="mobileMenuOpen = !mobileMenuOpen" 
-                                class="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition">
-                            <i class="fas fa-bars text-lg"></i>
-                        </button>
+                        <!-- Logo/Navigation Dropdown -->
+                        <div class="relative" x-data="{ navOpen: false }">
+                            <button @click="navOpen = !navOpen" 
+                                    class="flex items-center gap-3 p-1.5 pr-3 rounded-lg hover:bg-blue-900/20 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg border-2 border-white/30">
+                                    <i class="fas fa-building-columns text-lg"></i>
+                                </div>
+                                <div class="hidden sm:block text-left">
+                                    <p class="text-base font-semibold text-white drop-shadow">MPCMS</p>
+                                    <p class="text-xs text-blue-200/90">{{ config('cooperative.subtitle', 'Davao del Sur State College') }}</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-xs text-blue-200 hidden sm:block transition-transform duration-300" :class="{ 'rotate-90': navOpen }"></i>
+                            </button>
+                            
+                            <!-- Navigation Slideout -->
+                            <div x-show="navOpen" @click.away="navOpen = false" 
+                                 x-transition:enter="transition transform ease-out duration-300" 
+                                 x-transition:enter-start="-translate-x-full opacity-0" 
+                                 x-transition:enter-end="translate-x-0 opacity-100" 
+                                 x-transition:leave="transition transform ease-in duration-200" 
+                                 x-transition:leave-start="translate-x-0 opacity-100" 
+                                 x-transition:leave-end="-translate-x-full opacity-0"
+                                 class="fixed top-0 left-0 h-full w-full max-w-xs bg-gradient-to-br from-gray-900/95 to-gray-800/90 shadow-2xl ring-1 ring-gray-700/30 z-50 flex flex-col border-r border-gray-700/40 backdrop-blur-xl"
+                                 style="min-width: 320px;">
+                                
+                                <!-- Header -->
+                                <div class="flex items-center gap-4 px-6 py-6 border-b border-gray-700/40 bg-gray-900/80">
+                                    <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg border-2 border-white/30">
+                                        <i class="fas fa-building-columns text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-lg font-bold text-white drop-shadow">MPCMS</p>
+                                        <p class="text-xs text-gray-300">Navigation Menu</p>
+                                    </div>
+                                    <button @click="navOpen = false" class="ml-auto text-gray-400 hover:text-white transition text-xl focus:outline-none">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <!-- Navigation Links -->
+                                <div class="flex-1 overflow-y-auto py-4 px-4">
+                                    <div class="space-y-1">
+                                        <a href="{{ route('admin.dashboard') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-th-large w-5 text-center"></i>
+                                            <span>Dashboard</span>
+                                        </a>
+                                        
+                                        <div class="pt-4 pb-2">
+                                            <p class="section-header">Management</p>
+                                        </div>
+                                        
+                                        <a href="{{ route('admin.members.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.members.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-users w-5 text-center"></i>
+                                            <span>Members</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.member-registration.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.member-registration.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-user-plus w-5 text-center"></i>
+                                            <span>Registration</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.member-password.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.member-password.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-key w-5 text-center"></i>
+                                            <span>Password</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.member-sessions.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.member-sessions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-user-clock w-5 text-center"></i>
+                                            <span>Sessions</span>
+                                        </a>
+                                        
+                                        <div class="pt-4 pb-2">
+                                            <p class="section-header">Finance</p>
+                                        </div>
+                                        
+                                        <a href="{{ route('admin.finance.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.finance.index') || request()->routeIs('admin.loans.*') || request()->routeIs('admin.contributions.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-wallet w-5 text-center"></i>
+                                            <span>Finance</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.finance.repayment-confirmation') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.finance.repayment-confirmation') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-receipt w-5 text-center"></i>
+                                            <span>Repayment</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.amount-held.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.amount-held.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-piggy-bank w-5 text-center"></i>
+                                            <span>Savings</span>
+                                        </a>
+                                        
+                                        <div class="pt-4 pb-2">
+                                            <p class="section-header">Analytics</p>
+                                        </div>
+                                        
+                                        <a href="{{ route('admin.reports.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.reports.index') || request()->routeIs('admin.reports.contributions') || request()->routeIs('admin.reports.loans') || request()->routeIs('admin.reports.dividends*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-chart-line w-5 text-center"></i>
+                                            <span>Reports</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.reports.activity-logs') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.reports.activity-logs') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-history w-5 text-center"></i>
+                                            <span>Activity Logs</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.notifications.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.notifications.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-bell w-5 text-center"></i>
+                                            <span>Notifications</span>
+                                        </a>
+                                        
+                                        <a href="{{ route('admin.messages.index') }}" 
+                                           class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg">
+                                            <i class="fas fa-envelope w-5 text-center"></i>
+                                            <span>Messages</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div>
-                            <h1 class="text-lg font-semibold text-gray-900">@yield('title', 'Dashboard')</h1>
-                            <p class="text-xs text-gray-500 hidden sm:block">Cooperative Management System</p>
+                            <h1 class="text-lg font-semibold text-white">@yield('title', 'Dashboard')</h1>
+                            <p class="text-xs text-blue-200/90 hidden sm:block">Cooperative Management System</p>
                         </div>
                     </div>
                     
