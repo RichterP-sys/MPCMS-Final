@@ -452,7 +452,7 @@
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="-translate-x-full opacity-0"
-                                 style="position: fixed; top: 0; left: 0; height: 100%; width: 320px; max-width: 90vw; background: #1e293b; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
+                                 style="position: fixed !important; top: 0 !important; left: 0 !important; height: 100% !important; width: 320px !important; max-width: 90vw !important; background: #1e293b !important; background-color: #1e293b !important; box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important; z-index: 9999 !important; display: flex !important; flex-direction: column !important;">
                                 
                                 <!-- Header -->
                                 <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
@@ -469,7 +469,7 @@
                                 </div>
                                 
                                 <!-- Navigation Links -->
-                                <div style="flex: 1; overflow-y: auto; padding: 1rem;">
+                                <div style="flex: 1 !important; overflow-y: auto !important; padding: 1rem !important; background: #1e293b !important;">
                                     <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                                         <a href="{{ route('admin.dashboard') }}" 
                                            style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; color: white; text-decoration: none; background: {{ request()->routeIs('admin.dashboard') ? 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)' : 'rgba(255,255,255,0.05)' }}; transition: all 0.3s;">
