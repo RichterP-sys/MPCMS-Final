@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Admin Dashboard - Cooperative Management System</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -13,6 +18,53 @@
     
     <style>
         [x-cloak] { display: none !important; }
+        
+        /* Mobile browser compatibility fixes */
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+        }
+        
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Fix for iOS Safari viewport height */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+        }
+        
+        /* Prevent zoom on input focus for iOS */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+        
+        /* Better touch targets for mobile */
+        button, a, [role="button"] {
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
+        }
+        
+        /* Smooth scrolling for all browsers */
+        * {
+            -webkit-overflow-scrolling: touch;
+        }
         
         /* Custom scrollbar - Modern and sleek */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -464,6 +516,86 @@
         .profile-avatar {
             transition: all 0.3s ease;
         }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-slideout-menu,
+            .profile-slideout-menu {
+                width: 85vw !important;
+                max-width: 320px !important;
+            }
+            
+            /* Disable hover effects on mobile, use active states instead */
+            .nav-menu-link:hover,
+            .profile-menu-link:hover {
+                transform: none;
+            }
+            
+            .nav-menu-link:active {
+                background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(99, 102, 241, 0.3) 100%) !important;
+                transform: scale(0.98);
+            }
+            
+            .profile-menu-link:active {
+                background: rgba(59, 130, 246, 0.15) !important;
+                transform: scale(0.98);
+            }
+            
+            .profile-logout-btn:active {
+                transform: scale(0.98);
+            }
+            
+            /* Better spacing for mobile */
+            .admin-navbar {
+                padding: 0.5rem 1rem;
+            }
+            
+            /* Ensure cards are responsive */
+            .card-gradient {
+                margin: 0.5rem;
+            }
+            
+            /* Fix table overflow on mobile */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+        
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .nav-slideout-menu,
+            .profile-slideout-menu {
+                width: 90vw !important;
+                max-width: 100vw !important;
+            }
+            
+            /* Adjust font sizes for small screens */
+            body {
+                font-size: 14px;
+            }
+            
+            h1 { font-size: 1.25rem; }
+            h2 { font-size: 1.125rem; }
+            h3 { font-size: 1rem; }
+        }
+        
+        /* Landscape mode adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .nav-slideout-menu,
+            .profile-slideout-menu {
+                overflow-y: auto;
+            }
+        }
+        
+        /* Fix for Android Chrome address bar */
+        @supports (-webkit-appearance: none) {
+            .flex.h-screen {
+                height: 100vh;
+                height: calc(var(--vh, 1vh) * 100);
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -503,7 +635,7 @@
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="-translate-x-full opacity-0"
                                  class="nav-slideout-menu"
-                                 style="position: fixed; top: 0; left: 0; height: 100vh; width: 320px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
+                                 style="position: fixed; top: 0; left: 0; height: 100vh; height: calc(var(--vh, 1vh) * 100); width: 320px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column; overflow: hidden;">
                                 
                                 <!-- Header -->
                                 <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -829,7 +961,7 @@
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="translate-x-full opacity-0"
                                  class="profile-slideout-menu"
-                                 style="position: fixed; top: 0; right: 0; height: 100vh; width: 360px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: -10px 0 50px rgba(0,0,0,0.3); z-index: 9999; display: flex; flex-direction: column;">
+                                 style="position: fixed; top: 0; right: 0; height: 100vh; height: calc(var(--vh, 1vh) * 100); width: 360px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: -10px 0 50px rgba(0,0,0,0.3); z-index: 9999; display: flex; flex-direction: column; overflow: hidden;">
                                 
                                 <!-- Decorative Header Background -->
                                 <div style="position: relative; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); padding: 2rem 1.5rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
@@ -1013,6 +1145,59 @@
                     if (href && href !== '#') window.location.href = href;
                 }
             });
+        });
+    })();
+    
+    // Mobile viewport height fix for all browsers
+    (function() {
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
+        
+        // Prevent body scroll when menu is open
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('menuOpen', false);
+        });
+        
+        // Fix for iOS Safari bottom bar
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset === 0) {
+                    setVH();
+                }
+            });
+        }
+        
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Add active class for better mobile feedback
+        document.addEventListener('touchstart', function(e) {
+            const target = e.target.closest('button, a, [role="button"]');
+            if (target) {
+                target.style.opacity = '0.7';
+            }
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            const target = e.target.closest('button, a, [role="button"]');
+            if (target) {
+                setTimeout(() => {
+                    target.style.opacity = '1';
+                }, 100);
+            }
         });
     })();
     </script>
