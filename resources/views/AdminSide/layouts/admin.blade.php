@@ -423,6 +423,36 @@
         .nav-menu-link i {
             color: white !important;
         }
+        
+        /* Profile slideout menu styles */
+        .profile-slideout-menu {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+        }
+        
+        .profile-menu-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .profile-menu-link:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%) !important;
+            transform: translateY(-2px);
+        }
+        
+        .profile-menu-link span,
+        .profile-menu-link i {
+            color: white !important;
+        }
+        
+        .profile-logout-btn:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4) !important;
+        }
+        
+        .profile-logout-btn span,
+        .profile-logout-btn i {
+            color: white !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -778,39 +808,50 @@
                             </button>
                             
                             <!-- Profile Slideout -->
-                            <div x-show="open" @click.away="open = false" 
+                            <div x-show="open" 
+                                 x-cloak
+                                 @click.away="open = false" 
                                  x-transition:enter="transition transform ease-out duration-300" 
                                  x-transition:enter-start="translate-x-full opacity-0" 
                                  x-transition:enter-end="translate-x-0 opacity-100" 
                                  x-transition:leave="transition transform ease-in duration-200" 
                                  x-transition:leave-start="translate-x-0 opacity-100" 
                                  x-transition:leave-end="translate-x-full opacity-0"
-                                 style="position: fixed; top: 0; right: 0; height: 100%; width: 320px; max-width: 90vw; background: #1e293b; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
-                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
-                                    <div class="profile-avatar" style="width: 4rem; height: 4rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.5rem;">
+                                 class="profile-slideout-menu"
+                                 style="position: fixed; top: 0; right: 0; height: 100vh; width: 320px; max-width: 90vw; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 9999; display: flex; flex-direction: column;">
+                                
+                                <!-- Header -->
+                                <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <div class="profile-avatar" style="width: 4rem; height: 4rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: white !important; font-weight: 700; font-size: 1.5rem;">
                                         {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
                                     </div>
                                     <div style="flex: 1; min-width: 0;">
-                                        <p style="font-size: 1.125rem; font-weight: 700; color: white; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ auth()->user()->name ?? 'Admin' }}</p>
-                                        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
+                                        <p style="font-size: 1.125rem; font-weight: 700; color: white !important; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ auth()->user()->name ?? 'Admin' }}</p>
+                                        <p style="font-size: 0.75rem; color: #94a3b8 !important; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ auth()->user()->email ?? 'admin@mpcms.com' }}</p>
                                     </div>
-                                    <button @click="open = false" style="color: #94a3b8; background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem; flex-shrink: 0;">
-                                        <i class="fas fa-times" style="color: #94a3b8;"></i>
+                                    <button @click="open = false" style="color: #94a3b8; background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem; flex-shrink: 0; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">
+                                        <i class="fas fa-times" style="color: #94a3b8 !important;"></i>
                                     </button>
                                 </div>
+                                
+                                <!-- Menu Content -->
                                 <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
                                     <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                                        <a href="{{ route('admin.account-settings.index') }}" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: white; text-decoration: none; background: rgba(255,255,255,0.1); transition: all 0.3s;">
-                                            <i class="fas fa-user-cog" style="width: 1.25rem; color: #60a5fa;"></i>
-                                            <span style="color: white;">Account Settings</span>
+                                        <a href="{{ route('admin.account-settings.index') }}" 
+                                           class="profile-menu-link"
+                                           style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: white !important; text-decoration: none; background: rgba(255,255,255,0.05); transition: all 0.3s;">
+                                            <i class="fas fa-user-cog" style="width: 1.25rem; color: #60a5fa !important; font-size: 1.1rem;"></i>
+                                            <span style="color: white !important;">Account Settings</span>
                                         </a>
                                     </div>
                                     <div style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
                                         <form method="POST" action="{{ route('admin.logout') }}" style="width: 100%;">
                                             @csrf
-                                            <button type="submit" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: white; background: #dc2626; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); transition: all 0.3s;">
-                                                <i class="fas fa-sign-out-alt" style="width: 1.25rem; color: white;"></i>
-                                                <span style="color: white;">Sign Out</span>
+                                            <button type="submit" 
+                                                    class="profile-logout-btn"
+                                                    style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: white !important; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); transition: all 0.3s;">
+                                                <i class="fas fa-sign-out-alt" style="width: 1.25rem; color: white !important; font-size: 1.1rem;"></i>
+                                                <span style="color: white !important;">Sign Out</span>
                                             </button>
                                         </form>
                                     </div>
