@@ -28,6 +28,13 @@ class UserAuthController extends Controller
         $user = User::where('email', $credentials['email'])->first();
         
         if ($user && Hash::check($credentials['password'], $user->password)) {
+            // Check if this is an admin account (member_id is null)
+            if ($user->member_id === null) {
+                return back()->withErrors([
+                    'email' => 'Access denied. Please use the Administrator login option.',
+                ])->onlyInput('email');
+            }
+            
             // Login the user using member guard (for consistency with dashboard routes)
             Auth::guard('member')->login($user->member);
             $request->session()->regenerate();

@@ -37,7 +37,18 @@ class AdminAuthController extends Controller
             'password' => 'required'
         ]);
 
+        // Attempt authentication
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            
+            // Check if the user is an admin (member_id should be null for admins)
+            if ($user->member_id !== null) {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Access denied. This login is for administrators only.',
+                ])->onlyInput('email');
+            }
+            
             $request->session()->regenerate();
 
             ActivityLogService::log(

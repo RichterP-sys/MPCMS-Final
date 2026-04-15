@@ -21,6 +21,17 @@ class AdminAuth
             return redirect()->route('admin.login');
         }
 
+        // Additional check: Ensure the authenticated user is an admin (member_id should be null)
+        $user = Auth::guard('web')->user();
+        if ($user && $user->member_id !== null) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            return redirect()->route('admin.login')
+                ->withErrors(['email' => 'Access denied. Administrator privileges required.']);
+        }
+
         return $next($request);
     }
 } 
