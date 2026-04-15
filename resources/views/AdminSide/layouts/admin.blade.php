@@ -404,6 +404,18 @@
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
             outline: none;
         }
+        
+        /* Force navigation menu background to be visible */
+        [x-data*="navOpen"] > div[style*="position: fixed"] {
+            background: #1e293b !important;
+            background-color: #1e293b !important;
+            opacity: 1 !important;
+        }
+        
+        [x-data*="navOpen"] a span,
+        [x-data*="navOpen"] a i {
+            color: white !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -777,6 +789,16 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Wait for Alpine.js to initialize
         setTimeout(function() {
+            // Force navigation menu background
+            const navMenu = document.querySelector('[x-data*="navOpen"] > div[style*="position: fixed"]');
+            if (navMenu) {
+                navMenu.style.setProperty('background', '#1e293b', 'important');
+                navMenu.style.setProperty('background-color', '#1e293b', 'important');
+                navMenu.style.setProperty('opacity', '1', 'important');
+                navMenu.style.setProperty('visibility', 'visible', 'important');
+            }
+            
+            // Force all navigation links to be visible
             const navLinks = document.querySelectorAll('[x-data*="navOpen"] a[href]');
             navLinks.forEach(link => {
                 const span = link.querySelector('span');
@@ -793,6 +815,14 @@
                     icon.style.setProperty('visibility', 'visible', 'important');
                     icon.style.setProperty('opacity', '1', 'important');
                 }
+            });
+            
+            // Force section headers to be visible
+            const sectionHeaders = document.querySelectorAll('[x-data*="navOpen"] p[style*="text-transform: uppercase"]');
+            sectionHeaders.forEach(header => {
+                header.style.setProperty('color', '#94a3b8', 'important');
+                header.style.setProperty('visibility', 'visible', 'important');
+                header.style.setProperty('opacity', '1', 'important');
             });
         }, 100);
     });
