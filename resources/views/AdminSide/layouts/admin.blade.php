@@ -772,6 +772,30 @@
             });
         });
     })();
+    
+    // Force navigation menu text to be visible
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait for Alpine.js to initialize
+        setTimeout(function() {
+            const navLinks = document.querySelectorAll('[x-data*="navOpen"] a[href]');
+            navLinks.forEach(link => {
+                const span = link.querySelector('span');
+                if (span) {
+                    span.style.setProperty('color', 'white', 'important');
+                    span.style.setProperty('display', 'inline', 'important');
+                    span.style.setProperty('visibility', 'visible', 'important');
+                    span.style.setProperty('opacity', '1', 'important');
+                }
+                const icon = link.querySelector('i');
+                if (icon) {
+                    icon.style.setProperty('color', 'white', 'important');
+                    icon.style.setProperty('display', 'inline', 'important');
+                    icon.style.setProperty('visibility', 'visible', 'important');
+                    icon.style.setProperty('opacity', '1', 'important');
+                }
+            });
+        }, 100);
+    });
     </script>
 
     @yield('scripts')
